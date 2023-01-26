@@ -1,0 +1,28 @@
+modal schemas mongoose
+security token
+
+mongoose collection name not case sensitive
+
+find method doesnt need schemas
+
+cd..
+
+
+
+
+process////////////////////////////
+
+username: eCommerce
+password: eCommerce
+
+1 create react app
+2 backend folder ==npm init
+3 npm i express mongoose
+4 cluster==connect==copy the url
+
+
+
+
+
+
+
