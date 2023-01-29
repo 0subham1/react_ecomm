@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import {signUp} from "../service/apiService"
-
+import toast,{Toaster} from "react-hot-toast"
 
 const SignUp = () => {
   const API_URL = "http://localhost:4000/";
@@ -26,6 +26,10 @@ const SignUp = () => {
       body: JSON.stringify(userInfo),
     });
     result=await result.json()
+    if(result){
+      toast.success("success")
+      toast.error()
+    }
     localStorage.setItem("userInfo", JSON.stringify(result));
     // console.log(result,"result")
   };
@@ -76,6 +80,7 @@ const SignUp = () => {
       <Button size="small" variant="contained" onClick={handleSave}>
         Save
       </Button>
+      <Toaster/>
     </>
   );
 };

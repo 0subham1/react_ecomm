@@ -1,7 +1,18 @@
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap");
 
-.row{
+
+body {
+  background: rgb(37, 37, 37);
+  color: white;
+}
+
+.header{
+  background: black;
+}
+.row {
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
+
+

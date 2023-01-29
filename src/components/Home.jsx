@@ -7,9 +7,13 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { Modal } from "react-bootstrap";
 import Button from "@mui/material/Button";
+const BASE_URL = process.env.BASE_URL
+// import {BASE_URL} from "../Const"
+
+
+console.log(BASE_URL,"BASE_URL")
 
 const Home = () => {
-  const API_URL = "http://localhost:4000/";
   const [list, setList] = useState([]);
 
   useEffect(() => {
@@ -17,7 +21,7 @@ const Home = () => {
   }, []);
 
   const getProducts = async () => {
-    let result = await fetch(API_URL + "prodList", {
+    let result = await fetch(BASE_URL + "prodList", {
       method: "get",
       headers: { "Content-Type": "application/json" },
     });
@@ -30,13 +34,26 @@ const Home = () => {
     <>
       Home
       {list &&
-        list.map((a,i) => {
+        list.map((a, i) => {
           return (
             <table>
-              <tr style={{ display: "flex", alignItems: "center", width:"400px",justifyContent:"space-between" }}>
+              <tr
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  width: "400px",
+                  justifyContent: "space-between",
+                }}
+              >
                 <div>
-                  <img src={a.img} width="100px" height="100px" style={{borderRadius:"15px"}} />
-                </div>&nbsp;
+                  <img
+                    src={a.img}
+                    width="100px"
+                    height="100px"
+                    style={{ borderRadius: "15px" }}
+                  />
+                </div>
+                &nbsp;
                 <div>
                   {" "}
                   <div>{a.name}</div>
@@ -63,8 +80,9 @@ const Home = () => {
                     }
                   </div>
                 </div>
-                <Button variant="contained"  size="small">add</Button>
-
+                <Button variant="contained" size="small">
+                  add
+                </Button>
               </tr>
             </table>
           );
