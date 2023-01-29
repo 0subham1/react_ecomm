@@ -7,8 +7,8 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { Modal } from "react-bootstrap";
 import Button from "@mui/material/Button";
-const BASE_URL = process.env.BASE_URL
-// import {BASE_URL} from "../Const"
+
+import {BASE_URL} from "../Const"
 
 
 console.log(BASE_URL,"BASE_URL")

@@ -3,9 +3,10 @@ import { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import {signUp} from "../service/apiService"
 import toast,{Toaster} from "react-hot-toast"
+import {BASE_URL} from "../Const"
 
 const SignUp = () => {
-  const API_URL = "http://localhost:4000/";
+  // const API_URL = "http://localhost:4000/";
   const [userInfo, setuserInfo] = useState({
     name: "",
     email: "",
@@ -20,7 +21,7 @@ const SignUp = () => {
   };
 
   const handleSave = async () => {
-    let result = await fetch(API_URL + "signUp", {
+    let result = await fetch(BASE_URL + "signUp", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(userInfo),
@@ -39,7 +40,6 @@ const SignUp = () => {
 // }
 
 
-  console.log(API_URL + "signUp");
   console.log(userInfo, "userInfo");
 
   return (
