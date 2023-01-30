@@ -32,7 +32,7 @@ const Home = () => {
 
   return (
     <>
-      Home
+      my first ..
       {list &&
         list.map((a, i) => {
           return (
