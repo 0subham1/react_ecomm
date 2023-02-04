@@ -5,16 +5,33 @@ import Select from "react-select";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import { Modal } from "react-bootstrap";
+// import  Modal  from "react-bootstrap/Modal";
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 
-import {BASE_URL} from "../Const"
+import { BASE_URL } from "../Const";
 
-
-console.log(BASE_URL,"BASE_URL")
+console.log(BASE_URL, "BASE_URL");
 
 const Home = () => {
   const [list, setList] = useState([]);
+  const [show, setShow] = useState(false);
+  const handleClose = () => {
+    setShow(false);
+  };
+
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+  };
 
   useEffect(() => {
     getProducts();
@@ -32,7 +49,11 @@ const Home = () => {
 
   return (
     <>
-      my first ..
+      <Modal open={show} onClose={handleClose}>
+        <Box sx={style}>hello</Box>
+      </Modal>
+
+      <span onClick={() => setShow(true)}>click</span>
       {list &&
         list.map((a, i) => {
           return (
