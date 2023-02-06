@@ -1,12 +1,12 @@
 import React from "react";
 import "./App.css";
- import 'bootstrap/dist/css/bootstrap.min.css';
-import Navigation from "./components/Navigation";
+//  import 'bootstrap/dist/css/bootstrap.min.css';
+import Routing from "./components/Routing";
 
 const App = () => {
   return (
     <>
-      <Navigation />
+      <Routing />
     </>
   );
 };

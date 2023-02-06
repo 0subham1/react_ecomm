@@ -1,20 +1,66 @@
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap");
 
 body {
-  background: rgb(37, 37, 37);
-  color: white;
+  /* background: rgb(37, 37, 37); */
+  /* color: white; */
+  /* padding-left: 10px;
+  padding-right: 10px; */
   font-family: "Ubuntu" !important;
+  /* background-image: url("./img/background.jpg") */
 }
-
 .header {
   background: black;
+  color: white;
+  padding: 10px;
+  height: 60px;
 }
-.row {
+
+.skyBtn .dropdown-toggle {
+  background-color: rgb(24, 32, 40) !important;
+}
+
+.q1 div {
+  padding: 5px;
+  height: 50px;
+}
+.row1 {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 10px;
 }
 
-.pointer{
+.row2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 400px;
+  border: 2px solid;
+  border-radius: 6px;
+  padding: 10px;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.adminPanel div {
+  padding: 10px;
+  width: 200px;
+  cursor: pointer;
+}
+
+.icon {
+  font-size: 20px !important;
+  cursor: "pointer" !important;
+}
+
+.icon:hover {
+  color: aqua;
   cursor: pointer;
 }
