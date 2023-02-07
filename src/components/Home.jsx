@@ -26,14 +26,17 @@ import Swal from "sweetalert2";
 import PersonIcon from "@mui/icons-material/Person";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Cart from "./Cart";
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
+
 import Nav from "./Nav";
 
 console.log(BASE_URL, "BASE_URL");
 
 const Home = () => {
   let localUserInfo = JSON.parse(localStorage.getItem("localUserInfo"));
+
+  const [total, setTotal] = useState(0);
+  const [subTotal, setSubTotal] = useState(0);
+  const [tax, setTax] = useState("");
 
   const [cartItemList, setCartItemList] = useState([]);
   const [list, setList] = useState([]);
@@ -72,27 +75,6 @@ const Home = () => {
       });
     }
   };
-
-  const handleSave = () => {
-
-    const data = {
-      itemList: cartItemList,
-      userId: "63d0e3c0d5fb5a7eabae3ab6",
-      userName: "subham",
-      orderDate: new Date(),
-    };
-    axios.post(BASE_URL + "addOrder",data).then((res) => {
-      console.log(res);
-    });
-
-    console.log(data, "data");
-  };
-  const handleClearCart = () => {
-    setCartItemList([]);
-  };
-  useEffect(() => {
-    console.log(cartItemList, "cartItemList");
-  }, [cartItemList]);
   return (
     <>
       <Modal show={show} onHide={handleClose}>
@@ -135,126 +117,56 @@ const Home = () => {
             })}
         </Modal.Body>
       </Modal>
-      <div className="row2" style={{width:"100%"}}>
-        
-
+      <div className="row2" style={{ width: "100%" }}>
         <div>
-        <h4>Items</h4>
-        <div
-          style={{ overflowY: "scroll", maxHeight: "83vh", padding: "10px" }}
+          <h4>Items</h4>
+          <div
+            style={{ overflowY: "scroll", maxHeight: "83vh", padding: "10px" }}
           >
-         
-          {list &&
-            list.map((a, i) => {
-              return (
-                <>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      width: "400px",
-                      justifyContent: "space-between",
-                      border: "2px solid",
-                      borderRadius: "6px",
-                      padding: "10px",
-                    }}
-                  >
-                    <div>
-                      <img
-                        src={a.img}
-                        width="100px"
-                        height="100px"
-                        style={{ borderRadius: "15px" }}
-                      />
-                    </div>
-                    <div>
-                      <div style={{ width: "150px" }}>{a.name}</div>
-                      <div>Price: {a.price}</div>
-                    </div>
-                    <Button
-                      variant="contained"
-                      size="small"
-                      onClick={() => handleAddToCart(a, i)}
+            {list &&
+              list.map((a, i) => {
+                return (
+                  <>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        width: "400px",
+                        justifyContent: "space-between",
+                        border: "2px solid",
+                        borderRadius: "6px",
+                        padding: "10px",
+                      }}
                     >
-                      add
-                    </Button>
-                  </div>
-                  <br />
-                </>
-              );
-            })}
-        </div>
-        </div>
-       
-
-        <div style={{width:"360px"}}>
-          <h4 style={{textAlign:"center"}}>CART  <Badge badgeContent={cartItemList?.length} color="primary">
-            <Tooltip title="Clear Cart">
-              <RemoveShoppingCartIcon
-                style={{ cursor: "pointer", color: "tomato" }}
-                onClick={handleClearCart}
-              />
-            </Tooltip>
-          </Badge></h4>
-        <div
-          style={{ overflowY: "scroll", height: "50vh", padding: "10px" }}
-        >
-          {cartItemList &&
-            cartItemList.map((a, i) => {
-              return (
-                <>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      width: "300px",
-                      justifyContent: "space-between",
-                      border: "2px solid",
-                      borderRadius: "6px",
-                      padding: "10px",
-                    }}
-                  >
-                    
-                    <div>
-                      <div style={{ width: "150px" }}>{a.name}</div>
-                      <div>Qty: {a.qty}</div>
-                      <div>Price: {a.price}</div>
+                      <div>
+                        <img
+                          src={a.img}
+                          width="100px"
+                          height="100px"
+                          style={{ borderRadius: "15px" }}
+                        />
+                      </div>
+                      <div>
+                        <div style={{ width: "150px" }}>{a.name}</div>
+                        <div>Price: {a.price}</div>
+                      </div>
+                      <Button
+                        variant="contained"
+                        size="small"
+                        onClick={() => handleAddToCart(a, i)}
+                      >
+                        add
+                      </Button>
                     </div>
-                    <Button
-                      variant="contained"
-                      size="small"
-                      onClick={() => handleAddToCart(a, i)}
-                    >
-                      add
-                    </Button>
-                  </div>
-                  <br />
-                </>
-              );
-            })}
+                    <br />
+                  </>
+                );
+              })}
+          </div>
         </div>
-        <br/>
-      
-          <div>
-          <div className="row1">
-            <div>SubTotal:</div>
-            <div>200</div>
-          </div>
-          <div className="row1">
-            <div>Taxes:</div>
-            <div>20</div>
-          </div>
-          <div className="row1">
-            <div>Total:</div>
-            <div>200</div>
-          </div>
-        <div style={{textAlign:"center"}}>
 
-          <Button variant="contained" size="small" onClick={() => handleSave()}>
-            Submit
-          </Button>
-          </div>
-        </div>
+        <div style={{ width: "360px" }}>
+         <Cart cartItemList={cartItemList}/>
         </div>
       </div>
     </>

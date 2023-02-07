@@ -64,3 +64,8 @@ body {
   color: aqua;
   cursor: pointer;
 }
+
+.hover:hover {
+  color: aqua;
+  cursor: pointer;
+}

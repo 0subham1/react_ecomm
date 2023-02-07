@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import { BASE_URL } from "../Const";
@@ -16,6 +16,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import RestoreIcon from "@mui/icons-material/Restore";
 
 const Header = () => {
+  const [style, setStyle] = useState("Sign In");
   let navigate = useNavigate();
   let localUserInfo = JSON.parse(localStorage.getItem("localUserInfo"));
 
@@ -50,46 +51,92 @@ const Header = () => {
     });
   };
 
-  const [userInfo, setuserInfo] = useState({
+  const [userInfo, setUserInfo] = useState({
     name: "",
-    email: "",
+    phone: "",
     password: "",
   });
 
   const handleData = (e) => {
-    setuserInfo({
+    setUserInfo({
       ...userInfo,
       [e.target.name]: e.target.value,
     });
   };
-  const handleSave = async () => {
-    let result = await fetch(BASE_URL + "signUp", {
-      method: "post",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(userInfo),
-    });
-    result = await result.json();
-    if (result) {
-      toast.success("success");
-      toast.error();
+  const handleSave = () => {
+    const data = {
+      name: userInfo.name,
+      password: userInfo.password,
+    };
+
+    if (style == "Sign In") {
+      axios.post(BASE_URL + "login", data).then((res) => {
+        console.log(res);
+        if (res.data.result) {
+          localStorage.setItem("auth", JSON.stringify(res.data.auth));
+          localStorage.setItem(
+            "localUserInfo",
+            JSON.stringify(res.data.result)
+          );
+          toast.success("login successful");
+          window.location.href = "/";
+        } else {
+          toast.error("login unSuccessful");
+        }
+      });
+    } else if (style == "Sign Up") {
+      axios.post(BASE_URL + "signUp", userInfo).then((res) => {
+        console.log(res);
+        // localStorage.setItem("userInfo", JSON.stringify(result));
+      });
+    } else {
+      axios
+        .put(BASE_URL + "editUser/" + localUserInfo._id, userInfo)
+        .then((res) => {
+          console.log(res);
+          if(res.data.matchedCount>0){
+            toast.success("user Updated")
+            localStorage.setItem(
+              "localUserInfo",
+              JSON.stringify(userInfo)
+            );
+            handleClose()
+          }else{
+            toast("user not updated")
+          }
+          // localStorage.setItem("userInfo", JSON.stringify(result));
+        });
     }
-    localStorage.setItem("userInfo", JSON.stringify(result));
+
     // console.log(result,"result")
   };
 
   const handleSignIn = () => {
     setShow(true);
+    setStyle("Sign In");
+  };
+
+  const handleSignUp = () => {
+    setShow(true);
+    setStyle("Sign Up");
   };
 
   const handleProfile = () => {
     setShow(true);
+    setStyle("Edit Profile");
+    setUserInfo({...userInfo,
+    
+      name: localUserInfo.name,
+      phone: localUserInfo.phone,
+      password:localUserInfo.password,
+    })
   };
 
   return (
     <>
       <Modal show={show} onHide={handleClose}>
         <Modal.Body>
-          <div>SignUp</div>
+          <div>{style}</div>
           <br />
           <div className="q1">
             <div>
@@ -102,18 +149,23 @@ const Header = () => {
                 onChange={(e) => handleData(e)}
               />
             </div>
-
-            <br />
-            <div>
-              <TextField
-                variant="outlined"
-                label="Phone"
-                fullWidth={true}
-                name="phone"
-                value={userInfo.phone}
-                onChange={(e) => handleData(e)}
-              />
-            </div>
+            {style == "Sign In" ? (
+              <></>
+            ) : (
+              <>
+                <br />
+                <div>
+                  <TextField
+                    variant="outlined"
+                    label="Phone"
+                    fullWidth={true}
+                    name="phone"
+                    value={userInfo.phone}
+                    onChange={(e) => handleData(e)}
+                  />
+                </div>
+              </>
+            )}
 
             <br />
             <div>
@@ -128,8 +180,28 @@ const Header = () => {
             </div>
           </div>
           <br />
-          <div style={{textAlign:"center"}}>
-            <Button size="medium" variant="contained" onClick={handleSave}>
+          {style == "Sign In" ? (
+            <h5
+              style={{ textAlign: "center" }}
+              className="hover"
+              onClick={handleSignUp}
+            >
+              New Here? Sign Up
+            </h5>
+          ) : (
+            <h5   style={{ textAlign: "center" }}
+            className="hover"
+            onClick={handleSignIn}>
+            already have an account? Sign In
+            </h5>
+          )}
+          <br />
+          <div style={{ textAlign: "center" }}>
+            <Button
+              style={{ width: "50%" }}
+              variant="contained"
+              onClick={handleSave}
+            >
               Save
             </Button>
           </div>
@@ -187,6 +259,7 @@ const Header = () => {
           )}
         </div>
       </div>
+      <Toaster />
     </>
   );
 };
