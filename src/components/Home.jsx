@@ -28,11 +28,12 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import Cart from "./Cart";
 
 import Nav from "./Nav";
+import { Card } from "@mui/material";
 
 console.log(BASE_URL, "BASE_URL");
 
 const Home = () => {
-  let localUserInfo = JSON.parse(localStorage.getItem("localUserInfo"));
+  const localUserInfo = JSON.parse(localStorage.getItem("localUserInfo"));
 
   const [total, setTotal] = useState(0);
   const [subTotal, setSubTotal] = useState(0);
@@ -117,11 +118,11 @@ const Home = () => {
             })}
         </Modal.Body>
       </Modal>
-      <div className="row2" style={{ width: "100%" }}>
-        <div>
-          <h4>Items</h4>
+      <div className="row2" style={{width:"100%"}}>
+        <Card style={{margin:"10px",width:"400px"}} id="itemList">
+          <h4 className="darky" style={{textAlign:"center"}}>Items</h4>
           <div
-            style={{ overflowY: "scroll", maxHeight: "83vh", padding: "10px" }}
+            style={{ overflowY: "scroll", maxHeight: "600px", }}
           >
             {list &&
               list.map((a, i) => {
@@ -131,7 +132,7 @@ const Home = () => {
                       style={{
                         display: "flex",
                         alignItems: "center",
-                        width: "400px",
+                    
                         justifyContent: "space-between",
                         border: "2px solid",
                         borderRadius: "6px",
@@ -163,12 +164,14 @@ const Home = () => {
                 );
               })}
           </div>
-        </div>
+        </Card>
+    
 
-        <div style={{ width: "360px" }}>
+        <Card style={{ margin:"10px" }} id="responsive">
          <Cart cartItemList={cartItemList}/>
-        </div>
+        </Card>
       </div>
+      
     </>
   );
 };

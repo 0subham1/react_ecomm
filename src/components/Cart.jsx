@@ -12,13 +12,14 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Button from "@mui/material/Button";
 import LinearProgress from "@mui/material/LinearProgress";
 import TextField from "@mui/material/TextField";
-
+import { BottomNavigation } from '@mui/material'
 import Tooltip from "@mui/material/Tooltip";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
 import Badge from "@mui/material/Badge";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
+import { Card } from "@mui/material";
 
 
 
@@ -79,7 +80,7 @@ setCartItemList([...cartItemList,props.cartItemList])
   
   
   <div>
-          <h4 style={{ textAlign: "center" }}>
+          <h4 style={{ textAlign: "center" }} className="darky">
             CART{" "}
             <Badge badgeContent={cartItemList?.length} color="primary">
               <Tooltip title="Clear Cart">
@@ -90,7 +91,7 @@ setCartItemList([...cartItemList,props.cartItemList])
               </Tooltip>
             </Badge>
           </h4>
-          <div style={{ overflowY: "scroll", height: "50vh", padding: "10px" }}>
+          <div style={{ overflowY: "auto", height: "400px", padding: "10px" }}>
             {cartItemList &&
               cartItemList.map((a, i) => {
                 return (
@@ -126,7 +127,7 @@ setCartItemList([...cartItemList,props.cartItemList])
           </div>
           <br />
 
-          <div>
+          <Card >
             <div className="row1">
               <div>SubTotal:</div>
               <div>{subTotal}</div>
@@ -149,7 +150,7 @@ setCartItemList([...cartItemList,props.cartItemList])
                 Submit
               </Button>
             </div>
-          </div>
+          </Card>
         </div>
   
   

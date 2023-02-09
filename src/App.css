@@ -1,12 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap");
 
 body {
-  /* background: rgb(37, 37, 37); */
-  /* color: white; */
-  /* padding-left: 10px;
-  padding-right: 10px; */
+  font-size: 18px;
   font-family: "Ubuntu" !important;
-  /* background-image: url("./img/background.jpg") */
+  overflow: auto;
 }
 .header {
   background: black;
@@ -21,7 +18,7 @@ body {
 
 .q1 div {
   padding: 5px;
-  height: 50px;
+  height: 40px;
 }
 .row1 {
   display: flex;
@@ -49,10 +46,16 @@ body {
   cursor: pointer;
 }
 
-.adminPanel div {
-  padding: 10px;
+.adminPanel {
+  margin: 10px;
+  /* padding: 10px; */
   width: 200px;
   cursor: pointer;
+  /* border: 2px solid black; */
+}
+
+.adminPanel div {
+  padding-left: 10px;
 }
 
 .icon {
@@ -66,6 +69,26 @@ body {
 }
 
 .hover:hover {
-  color: aqua;
+  color: rgb(231, 63, 63);
   cursor: pointer;
+}
+
+.darky {
+  background-color: black;
+  color: aliceblue;
+  height: 40px;
+  text-align: center;
+}
+
+@media (max-width: 60rem) {
+  #responsive {
+    display: none;
+  }
+
+  #itemList {
+    width: 100% !important;
+  }
+  /* #dropItemCart {
+    display: block !important;
+  } */
 }

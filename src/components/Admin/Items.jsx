@@ -197,6 +197,7 @@ const Items = () => {
             <br />
             <div>
               <TextField
+            
                 fullWidth={true}
                 variant="outlined"
                 label="Note"
@@ -220,11 +221,12 @@ const Items = () => {
       </Modal>
 
       <div style={{ width: "100%" }}>
-        <div className="row1">
+        <div className="row1 ">
           <h4>Item List</h4>
-          <div className="q1" style={{ display: "flex", alignItems: "center" }}>
+          <div className="q1" style={{ display: "flex", alignItems: "end" }}>
             <TextField
               variant="outlined"
+              // placeholder={<SearchRoundedIcon />}
               label={<SearchRoundedIcon />}
               onChange={(e) => handleSearch(e.target.value)}
             />{" "}

@@ -14,11 +14,11 @@ import Swal from "sweetalert2";
 import PersonIcon from "@mui/icons-material/Person";
 import LogoutIcon from "@mui/icons-material/Logout";
 import RestoreIcon from "@mui/icons-material/Restore";
-
+import logo from "../img/logo.png";
 const Header = () => {
   const [style, setStyle] = useState("Sign In");
   let navigate = useNavigate();
-  let localUserInfo = JSON.parse(localStorage.getItem("localUserInfo"));
+  const localUserInfo = JSON.parse(localStorage.getItem("localUserInfo"));
 
   let localCart;
   let LC;
@@ -94,15 +94,12 @@ const Header = () => {
         .put(BASE_URL + "editUser/" + localUserInfo._id, userInfo)
         .then((res) => {
           console.log(res);
-          if(res.data.matchedCount>0){
-            toast.success("user Updated")
-            localStorage.setItem(
-              "localUserInfo",
-              JSON.stringify(userInfo)
-            );
-            handleClose()
-          }else{
-            toast("user not updated")
+          if (res.data.matchedCount > 0) {
+            toast.success("user Updated");
+            localStorage.setItem("localUserInfo", JSON.stringify(userInfo));
+            handleClose();
+          } else {
+            toast("user not updated");
           }
           // localStorage.setItem("userInfo", JSON.stringify(result));
         });
@@ -124,12 +121,13 @@ const Header = () => {
   const handleProfile = () => {
     setShow(true);
     setStyle("Edit Profile");
-    setUserInfo({...userInfo,
-    
+    setUserInfo({
+      ...userInfo,
+
       name: localUserInfo.name,
       phone: localUserInfo.phone,
-      password:localUserInfo.password,
-    })
+      password: localUserInfo.password,
+    });
   };
 
   return (
@@ -189,10 +187,12 @@ const Header = () => {
               New Here? Sign Up
             </h5>
           ) : (
-            <h5   style={{ textAlign: "center" }}
-            className="hover"
-            onClick={handleSignIn}>
-            already have an account? Sign In
+            <h5
+              style={{ textAlign: "center" }}
+              className="hover"
+              onClick={handleSignIn}
+            >
+              already have an account? Sign In
             </h5>
           )}
           <br />
@@ -208,55 +208,59 @@ const Header = () => {
         </Modal.Body>
       </Modal>
       <div className="row1 header" style={{ height: "70px" }}>
-        <h4 onClick={() => navigate("/")}>Home</h4>
+        <h4 onClick={() => navigate("/")} className="pointer">
+          <img src={logo} width="50px" />
+        </h4>
+        <div style={{display:"flex",alignItems:"center"}}>
+          {localUserInfo?.name}&nbsp;
+          <div className="dropBtn">
+            {localUserInfo ? (
+              <Dropdown className="skyBtn">
+                <Dropdown.Toggle className="skyBtn">
+                  <PersonIcon style={{ color: "white" }} />
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <>
+                    <Dropdown.Item
+                      onClick={handleProfile}
+                      style={{ cursor: "pointer" }}
+                    >
+                      <b>
+                        <PersonIcon /> &nbsp;&nbsp;&nbsp;Profile
+                      </b>
+                    </Dropdown.Item>
 
-        <div className="dropBtn">
-          {localUserInfo ? (
-            <Dropdown className="skyBtn">
-              <Dropdown.Toggle className="skyBtn">
-                <PersonIcon style={{ color: "white" }} />
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                <>
-                  <Dropdown.Item
-                    onClick={handleProfile}
-                    style={{ cursor: "pointer" }}
-                  >
-                    <b>
-                      <PersonIcon /> &nbsp;&nbsp;&nbsp;Profile
-                    </b>
-                  </Dropdown.Item>
+                    <Dropdown.Item
+                      onClick={() =>
+                        navigate("/orderHistory", { state: localCart })
+                      }
+                      style={{ cursor: "pointer" }}
+                    >
+                      <b>
+                        <RestoreIcon /> &nbsp;&nbsp;&nbsp;History
+                      </b>
+                    </Dropdown.Item>
 
-                  <Dropdown.Item
-                    onClick={() =>
-                      navigate("/orderHistory", { state: localCart })
-                    }
-                    style={{ cursor: "pointer" }}
-                  >
-                    <b>
-                      <RestoreIcon /> &nbsp;&nbsp;&nbsp;History
-                    </b>
-                  </Dropdown.Item>
-
-                  <Dropdown.Item
-                    onClick={handleLogout}
-                    style={{ cursor: "pointer" }}
-                  >
-                    <b>
-                      <LogoutIcon /> &nbsp;&nbsp;&nbsp;Logout
-                    </b>
-                  </Dropdown.Item>
-                </>
-              </Dropdown.Menu>
-            </Dropdown>
-          ) : (
-            <>
-              <PersonIcon
-                onClick={handleSignIn}
-                style={{ cursor: "pointer", color: "white" }}
-              />
-            </>
-          )}
+                    <Dropdown.Item
+                      onClick={handleLogout}
+                      style={{ cursor: "pointer" }}
+                    >
+                      <b>
+                        <LogoutIcon /> &nbsp;&nbsp;&nbsp;Logout
+                      </b>
+                    </Dropdown.Item>
+                  </>
+                </Dropdown.Menu>
+              </Dropdown>
+            ) : (
+              <>
+                <PersonIcon
+                  onClick={handleSignIn}
+                  style={{ cursor: "pointer", color: "white" }}
+                />
+              </>
+            )}
+          </div>
         </div>
       </div>
       <Toaster />
