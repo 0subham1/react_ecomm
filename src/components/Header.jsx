@@ -253,12 +253,11 @@ const Header = (props) => {
 
       <Modal show={show2} onHide={handleClose2}>
         <Modal.Body>
-          Welcome to my MERN project, <br />
-          I am subham..
+          Hello I am subham.. <br />
+          Welcome to my MERN app,
           <hr />
-          Kindly Sign Up as random customer
+          Kindly Sign Up as random customer or login as
           <br />
-          or login as <br />
           userName: admin
           <br /> Password: 12
           <hr />
@@ -272,7 +271,9 @@ const Header = (props) => {
         <Modal.Body>
           <h5 className="row1">
             <span> {localUserInfo?.name}'s Order List</span>{" "}
-            <span onClick={handleClose3} className="pointer">X</span>
+            <span onClick={handleClose3} className="pointer">
+              X
+            </span>
           </h5>
           <br />
           <table width="100%">
