@@ -108,6 +108,7 @@ const Home = () => {
     <div style={{ width: "100%" }}>
       <Modal show={show} onHide={handleClose}>
         <Modal.Body className="dark">
+          <h4 className="row1"><span></span><span className="pointer" onClick={handleClose}>X</span> </h4>
           <Cart
             cartItemList={cartItemList}
             handleParentSetCart={handleParentSetCart}

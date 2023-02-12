@@ -21,6 +21,7 @@ import InfoIcon from "@mui/icons-material/Info";
 import logo from "../img/logo.png";
 import ViewHeadlineIcon from "@mui/icons-material/ViewHeadline";
 import Nav from "./Nav";
+import ModalDialog from "react-bootstrap/esm/ModalDialog";
 
 const Header = (props) => {
   let navigate = useNavigate();
@@ -269,7 +270,10 @@ const Header = (props) => {
 
       <Modal show={show3} onHide={handleClose3} size="lg">
         <Modal.Body>
-          <h5> {localUserInfo?.name}'s Order List</h5>
+          <h5 className="row1">
+            <span> {localUserInfo?.name}'s Order List</span>{" "}
+            <span onClick={handleClose3} className="pointer">X</span>
+          </h5>
           <br />
           <table width="100%">
             <tr>
@@ -313,9 +317,12 @@ const Header = (props) => {
       </Modal>
 
       <div className="row1 header" style={{ height: "70px" }}>
-        <h4 onClick={() => navigate("/")} className="pointer">
-          <img src={logo} width="50px" /> FoodCart{" "}
-          <InfoIcon onClick={() => setShow2(true)} />
+        <h4>
+          <span className="pointer" onClick={() => navigate("/")}>
+            {" "}
+            <img src={logo} width="50px" /> FoodCart{" "}
+          </span>
+          <InfoIcon className="pointer" onClick={() => setShow2(true)} />
         </h4>
 
         <div style={{ display: "flex", alignItems: "center" }}>
