@@ -258,8 +258,8 @@ const Header = (props) => {
           Kindly Sign Up as random customer
           <br />
           or login as <br />
-          userName:admin
-          <br /> Password:12
+          userName: admin
+          <br /> Password: 12
           <hr />
           {/* Project features:
           <br />

@@ -70,7 +70,7 @@ const Items = () => {
         <div>
           <EditIcon onClick={() => handleEdit(row)} className="icon" />
           &nbsp;
-          <DeleteIcon onClick={() => handleDelete(row)} className="icon" />
+          {/* <DeleteIcon onClick={() => handleDelete(row)} className="icon" /> */}
         </div>
       ),
     },

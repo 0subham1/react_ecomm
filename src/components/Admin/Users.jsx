@@ -72,16 +72,16 @@ const Users = () => {
       selector: (row) => row?.isAdmin?"true":"",
     },
 
-    {
-      name: "ACTION",
-      selector: (row) => (
-        <div>
-          {/* <EditIcon onClick={() => handleEdit(row)} className="icon" /> */}
-          &nbsp;
-          <DeleteIcon onClick={() => handleDelete(row)} className="icon" />
-        </div>
-      ),
-    },
+    // {
+    //   name: "ACTION",
+    //   selector: (row) => (
+    //     <div>
+    //       {/* <EditIcon onClick={() => handleEdit(row)} className="icon" /> */}
+    //       &nbsp;
+    //       <DeleteIcon onClick={() => handleDelete(row)} className="icon" />
+    //     </div>
+    //   ),
+    // },
   ];
 
   const handleEdit = (row) => {
