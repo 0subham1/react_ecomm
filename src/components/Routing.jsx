@@ -34,7 +34,7 @@ const Routing = () => {
           )}
         </Routes>
       </div>
-      <div
+      {/* <div
         className="darky"
         style={{
           height: "30px",
@@ -42,7 +42,7 @@ const Routing = () => {
           position: "sticky",
           width: "100%",
         }}
-      ></div>
+      ></div> */}
     </>
   );
 };

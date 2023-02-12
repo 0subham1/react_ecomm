@@ -12,156 +12,223 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Button from "@mui/material/Button";
 import LinearProgress from "@mui/material/LinearProgress";
 import TextField from "@mui/material/TextField";
-import { BottomNavigation } from '@mui/material'
+import { BottomNavigation } from "@mui/material";
 import Tooltip from "@mui/material/Tooltip";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
 import Badge from "@mui/material/Badge";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
+import CancelIcon from "@mui/icons-material/Cancel";
 import { Card } from "@mui/material";
 
-
-
-
-
 const Cart = (props) => {
+  console.log(props, "props");
 
-  console.log(props,"props")
+  const localUserInfo = JSON.parse(localStorage.getItem("localUserInfo"));
+
+  let aa = localStorage?.getItem("localCart");
+  let LC;
+  if (aa) {
+    LC = JSON?.parse( localStorage?.getItem("localCart"));
+  } else {
+    LC = [];
+    localStorage.setItem("localCart",[]);
+  }
+
   const [total, setTotal] = useState(0);
   const [subTotal, setSubTotal] = useState(0);
   const [tax, setTax] = useState("");
 
-  const [cartItemList, setCartItemList] = useState(props.cartItemList);
+  const [cartItemList, setCartItemList] = useState(
+    props?.cartItemList ? props?.cartItemList : LC
+  );
 
-useEffect(()=>{
-setCartItemList([...cartItemList,props.cartItemList])
+  useEffect(() => {
+    setCartItemList(props.cartItemList);
+  }, [props?.cartItemList]);
 
-},[props])
-
-  
+  useEffect(() => {
+    localStorage.setItem("localCart", JSON.stringify(cartItemList));
+    props?.handleParentSetCart(cartItemList);
+    console.log(cartItemList, "cartItemList cart");
+  }, [cartItemList]);
 
   const handleSave = () => {
     const data = {
       itemList: cartItemList,
-      userId: "63d0e3c0d5fb5a7eabae3ab6",
-      userName: "subham",
+      userId: localUserInfo._id,
+      userName: localUserInfo.name,
       orderDate: new Date(),
-      subTotal:subTotal,
-      total:total,
-      tax:tax,
+      subTotal: subTotal,
+      total: total,
+      tax: tax,
     };
     axios.post(BASE_URL + "addOrder", data).then((res) => {
       console.log(res);
+      if (res.data) {
+        toast.success("Order placed successfully");
+        handleClearCart();
+      } else {
+        toast("error in placing order");
+      }
     });
 
     console.log(data, "data");
   };
   const handleClearCart = () => {
     setCartItemList([]);
+    localStorage.setItem("localCart", []);
   };
 
   useEffect(() => {
     let sum = 0;
-    cartItemList.map((a) => {
-      sum = sum + a.price;
-    });
+    cartItemList &&
+      cartItemList.map((a) => {
+        sum = sum + a.finalPrice;
+      });
     setSubTotal(sum);
     setTax(0.05 * sum);
     setTotal(tax + sum);
 
     console.log(cartItemList, "cartItemList");
-  }, [cartItemList]);
+  }, [cartItemList, tax, subTotal]);
 
+  const handleRemoveItem = (i) => {
+    let arr = [...cartItemList];
+    arr.splice(i, 1);
+    setCartItemList(arr);
+  };
+
+  const handleChangeQty = (e, i, type) => {
+    const deepCopy = JSON.parse(JSON.stringify(cartItemList));
+    const obj = [...deepCopy];
+
+    if (type == "add") {
+      obj[i].qty += 1;
+    }
+    if (type == "sub" && obj[i].qty > 1) {
+      obj[i].qty -= 1;
+    }
+    obj[i].finalPrice = obj[i].qty * obj[i].price;
+    setCartItemList(obj);
+  };
 
   return (
-  <>
-  
-  
-  
-  <div>
-          <h4 style={{ textAlign: "center" }} className="darky">
-            CART{" "}
-            <Badge badgeContent={cartItemList?.length} color="primary">
-              <Tooltip title="Clear Cart">
-                <RemoveShoppingCartIcon
-                  style={{ cursor: "pointer", color: "tomato" }}
-                  onClick={handleClearCart}
-                />
-              </Tooltip>
-            </Badge>
-          </h4>
-          <div style={{ overflowY: "auto", height: "400px", padding: "10px" }}>
-            {cartItemList &&
+    <>
+      <div>
+        <h4
+          style={{
+            display: "flex",
+            justifyContent: "space-around",
+            alignItems: "center",
+          }}
+          className="darky"
+        >
+          <span>CART</span>{" "}
+          <Badge
+            badgeContent={cartItemList?.length}
+            color="primary"
+            style={{ zIndex: "100" }}
+          >
+            <Tooltip title="Clear Cart">
+              <RemoveShoppingCartIcon
+                style={{ cursor: "pointer", color: "tomato" }}
+                onClick={handleClearCart}
+              />
+            </Tooltip>
+          </Badge>
+        </h4>
+        <div style={{ overflowY: "auto", height: "60vh", padding: "10px" }}>
+          {cartItemList?.length > 0
+            ? cartItemList &&
               cartItemList.map((a, i) => {
                 return (
                   <>
                     <div
                       style={{
-                        display: "flex",
-                        alignItems: "center",
+                        // display: "flex",
+                        // alignItems: "center",
+                        // justifyContent: "space-between",
                         width: "300px",
-                        justifyContent: "space-between",
                         border: "2px solid",
                         borderRadius: "6px",
                         padding: "10px",
                       }}
+                      id="cartDiv"
                     >
-                      <div>
-                        <div style={{ width: "150px" }}>{a.name}</div>
-                        <div>Qty: {a.qty}</div>
-                        <div>Price: {a.price}</div>
-                      </div>
-                      <Button
-                        variant="contained"
-                        size="small"
-                        // onClick={() => handleAddToCart(a, i)}
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                        }}
                       >
-                        add
-                      </Button>
+                        <h5 style={{ width: "150px" }}>{a.name}</h5>{" "}
+                        <CancelIcon
+                          className="icon"
+                          onClick={() => handleRemoveItem(i)}
+                        />
+                      </div>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "end",
+                        }}
+                      >
+                        <div>
+                          <div>Qty: {a.qty}</div>
+                          <div>Price: {a.price}</div>
+                        </div>
+                        <div style={{ display: "flex" }}>
+                          <RemoveCircleIcon
+                            className="icon"
+                            onClick={(e) => handleChangeQty(e, i, "sub")}
+                          />
+                          &nbsp;
+                          <AddCircleIcon
+                            className="icon"
+                            onClick={(e) => handleChangeQty(e, i, "add")}
+                          />
+                        </div>{" "}
+                      </div>
                     </div>
                     <br />
                   </>
                 );
-              })}
-          </div>
-          <br />
-
-          <Card >
-            <div className="row1">
-              <div>SubTotal:</div>
-              <div>{subTotal}</div>
-            </div>
-            <div className="row1">
-              <div>Taxes:</div>
-              <div>{tax}</div>
-            </div>
-            <div className="row1">
-              <div>Total:</div>
-              <div>{total}</div>
-            </div>
-            <div style={{ textAlign: "center" }}>
-              <Button
-                variant="contained"
-                size="small"
-                style={{ width: "50%" }}
-                onClick={() => handleSave()}
-              >
-                Submit
-              </Button>
-            </div>
-          </Card>
+              })
+            : "No Items added yet"}
         </div>
-  
-  
-  
-  
-  
-  
-  
-  
-  </>
-  )
-}
+        <br />
 
-export default Cart
+        <Card>
+          <div className="row1">
+            <div>SubTotal:</div>
+            <div>{subTotal}</div>
+          </div>
+          <div className="row1">
+            <div>Taxes (5%):</div>
+            <div>{Number(tax)?.toFixed(2)}</div>
+          </div>
+          <h5 className="row1">
+            <div>Total:</div>
+            <div>₹ {total}</div>
+          </h5>
+          <div style={{ textAlign: "center" }}>
+            <Button
+              variant="contained"
+              size="small"
+              style={{ width: "50%" }}
+              onClick={() => handleSave()}
+            >
+              Submit
+            </Button>
+          </div>
+        </Card>
+      </div>
+      <Toaster />
+    </>
+  );
+};
+
+export default Cart;
