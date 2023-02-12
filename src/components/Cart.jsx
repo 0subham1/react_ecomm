@@ -69,6 +69,7 @@ const Cart = (props) => {
       if (res.data) {
         toast.success("Order placed successfully");
         handleClearCart();
+        props.handleClose()
       } else {
         toast("error in placing order");
       }

@@ -25,11 +25,10 @@ import Nav from "./Nav";
 const Header = (props) => {
   let navigate = useNavigate();
   const localUserInfo = JSON.parse(localStorage.getItem("localUserInfo"));
-  
+
   const [style, setStyle] = useState("Sign In");
   const [loading, setLoading] = useState(false);
   const [orderList, setOrderList] = useState([]);
-
 
   const [show, setShow] = useState(false);
   const handleClose = () => {
@@ -52,7 +51,6 @@ const Header = (props) => {
     phone: "",
     password: "",
   });
-
 
   const handleLogout = () => {
     Swal.fire({
@@ -96,6 +94,7 @@ const Header = (props) => {
           toast.success("login successful");
           window.location.href = "/";
           setLoading(false);
+          handleClose();
         } else {
           toast.error("login unSuccessful");
           setLoading(false);
@@ -107,6 +106,7 @@ const Header = (props) => {
         if (res.data) {
           toast.success("SignUp successful");
           setLoading(false);
+          handleClose();
         } else {
           toast.success("SignUp UnSuccessful");
           setLoading(false);
@@ -166,7 +166,6 @@ const Header = (props) => {
     });
   };
 
-  
   console.log(orderList, "sss");
   return (
     <>
@@ -251,7 +250,22 @@ const Header = (props) => {
         </Modal.Body>
       </Modal>
 
-  
+      <Modal show={show2} onHide={handleClose2}>
+        <Modal.Body>
+          Welcome to my MERN project, <br />
+          I am subham..
+          <hr />
+          Kindly Sign Up as random customer
+          <br />
+          or login as <br />
+          userName:admin
+          <br /> Password:12
+          <hr />
+          {/* Project features:
+          <br />
+          * */}
+        </Modal.Body>
+      </Modal>
 
       <Modal show={show3} onHide={handleClose3} size="lg">
         <Modal.Body>
@@ -301,17 +315,7 @@ const Header = (props) => {
       <div className="row1 header" style={{ height: "70px" }}>
         <h4 onClick={() => navigate("/")} className="pointer">
           <img src={logo} width="50px" /> FoodCart{" "}
-          <Tooltip
-            title={
-              <>
-                <div>Admin login:</div>
-                <div>userName: admin</div>
-                <div>password: 12</div>
-              </>
-            }
-          >
-            <InfoIcon />
-          </Tooltip>
+          <InfoIcon onClick={() => setShow2(true)} />
         </h4>
 
         <div style={{ display: "flex", alignItems: "center" }}>

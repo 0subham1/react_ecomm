@@ -102,6 +102,8 @@ const Home = () => {
     console.log(cartItemList, "cartItemList");
   }, [cartItemList]);
 
+
+
   return (
     <div style={{ width: "100%" }}>
       <Modal show={show} onHide={handleClose}>
@@ -109,6 +111,7 @@ const Home = () => {
           <Cart
             cartItemList={cartItemList}
             handleParentSetCart={handleParentSetCart}
+            handleClose={handleClose}
           />
         </Modal.Body>
       </Modal>
@@ -225,6 +228,7 @@ const Home = () => {
           />
         </Card>
       </div>
+      <Toaster />
     </div>
   );
 };
