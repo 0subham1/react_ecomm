@@ -69,7 +69,7 @@ const Users = () => {
     {
       name: "isAdmin",
 
-      selector: (row) => row?.isAdmin?"true":"",
+      selector: (row) => (row?.isAdmin ? "true" : ""),
     },
 
     // {
@@ -113,9 +113,7 @@ const Users = () => {
 
   const handleSearch = (search) => {
     const result = userList2.filter((a) => {
-      return (
-        a.name.toLowerCase().match(search.toLowerCase())
-      );
+      return a.name.toLowerCase().match(search.toLowerCase());
     });
     setUserList(result);
   };
@@ -224,27 +222,30 @@ const Users = () => {
       </Modal>
 
       <div style={{ width: "100%" }}>
-        <div className="row1 ">
-          <h4>Users List</h4>
-          <div className="q1" style={{ display: "flex", alignItems: "end" }}>
-            <TextField
-              variant="outlined"
-              // placeholder={<SearchRoundedIcon />}
-              label={<SearchRoundedIcon />}
-              onChange={(e) => handleSearch(e.target.value)}
-            />{" "}
-            {/* <Button
-              variant="contained"
-              size="small"
-              onClick={() => setShow(true)}
-            >
-              <AddIcon />
-              New
-            </Button> */}
-          </div>
-        </div>
-        <br />
-        <DataTable columns={columns} data={userList} fixedHeader />
+        <DataTable
+        title="Users List"
+          columns={columns}
+          data={userList}
+          fixedHeader
+          subHeader
+          subHeaderComponent={
+            <>
+              <TextField
+                variant="outlined"
+                label={<SearchRoundedIcon />}
+                onChange={(e) => handleSearch(e.target.value)}
+              />{" "}
+              <Button
+                variant="contained"
+                size="small"
+                onClick={() => setShow(true)}
+              >
+                <AddIcon />
+                New
+              </Button>
+            </>
+          }
+        />
       </div>
       <Toaster />
     </>

@@ -192,7 +192,7 @@ const Home = () => {
                     >
                       <div>
                         <img
-                          src={a?.img ? a.img : food}
+                          src={a?.img==""||a.img==null ? food : a.img}
                           width="100px"
                           height="100px"
                           style={{ borderRadius: "15px" }}

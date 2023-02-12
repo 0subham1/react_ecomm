@@ -222,12 +222,15 @@ const Orders = () => {
       </Modal>
 
       <div style={{ width: "100%" }}>
-        <div className="row1 ">
-          <h4>Orders List</h4>
-          <div className="q1" style={{ display: "flex", alignItems: "end" }}>
+       
+        <DataTable
+        title="Orders List"
+        columns={columns} data={orderList} fixedHeader 
+        subHeader
+        subHeaderComponent={
+          <>
             <TextField
               variant="outlined"
-              // placeholder={<SearchRoundedIcon />}
               label={<SearchRoundedIcon />}
               onChange={(e) => handleSearch(e.target.value)}
             />{" "}
@@ -239,10 +242,9 @@ const Orders = () => {
               <AddIcon />
               New
             </Button> */}
-          </div>
-        </div>
-        <br />
-        <DataTable columns={columns} data={orderList} fixedHeader />
+          </>
+        }
+        />
       </div>
       <Toaster />
     </>

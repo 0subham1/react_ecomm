@@ -78,7 +78,7 @@ const Header = (props) => {
     setLoading(true);
     e.preventDefault();
     const data = {
-      name: userInfo.name,
+      name: userInfo.name.toLocaleLowerCase(),
       password: userInfo.password,
     };
 
@@ -152,9 +152,9 @@ const Header = (props) => {
     setUserInfo({
       ...userInfo,
 
-      name: localUserInfo.name,
+      name: localUserInfo.name.toLocaleLowerCase(),
       phone: localUserInfo.phone,
-      password: localUserInfo.password,
+      password: localUserInfo.password.toLocaleLowerCase(),
     });
   };
 

@@ -197,7 +197,6 @@ const Items = () => {
             <br />
             <div>
               <TextField
-            
                 fullWidth={true}
                 variant="outlined"
                 label="Note"
@@ -221,27 +220,30 @@ const Items = () => {
       </Modal>
 
       <div style={{ width: "100%" }}>
-        <div className="row1 ">
-          <h4>Item List</h4>
-          <div className="q1" style={{ display: "flex", alignItems: "end" }}>
-            <TextField
-              variant="outlined"
-              // placeholder={<SearchRoundedIcon />}
-              label={<SearchRoundedIcon />}
-              onChange={(e) => handleSearch(e.target.value)}
-            />{" "}
-            <Button
-              variant="contained"
-              size="small"
-              onClick={() => setShow(true)}
-            >
-              <AddIcon />
-              New
-            </Button>
-          </div>
-        </div>
-        <br />
-        <DataTable columns={columns} data={itemList} fixedHeader />
+        <DataTable
+          title="Item List"
+          columns={columns}
+          data={itemList}
+          fixedHeader
+          subHeader
+          subHeaderComponent={
+            <>
+              <TextField
+                variant="outlined"
+                label={<SearchRoundedIcon />}
+                onChange={(e) => handleSearch(e.target.value)}
+              />{" "}
+              <Button
+                variant="contained"
+                size="small"
+                onClick={() => setShow(true)}
+              >
+                <AddIcon />
+                New
+              </Button>
+            </>
+          }
+        />
       </div>
       <Toaster />
     </>
