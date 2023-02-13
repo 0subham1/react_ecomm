@@ -72,16 +72,16 @@ const Users = () => {
       selector: (row) => (row?.isAdmin ? "true" : ""),
     },
 
-    // {
-    //   name: "ACTION",
-    //   selector: (row) => (
-    //     <div>
-    //       {/* <EditIcon onClick={() => handleEdit(row)} className="icon" /> */}
-    //       &nbsp;
-    //       <DeleteIcon onClick={() => handleDelete(row)} className="icon" />
-    //     </div>
-    //   ),
-    // },
+    {
+      name: "ACTION",
+      selector: (row) => (
+        <div>
+          {/* <EditIcon onClick={() => handleEdit(row)} className="icon" /> */}
+          &nbsp;
+          <DeleteIcon onClick={() => handleDelete(row)} className="icon" />
+        </div>
+      ),
+    },
   ];
 
   const handleEdit = (row) => {
@@ -100,15 +100,23 @@ const Users = () => {
 
   const handleDelete = (row) => {
     console.log(row, "row");
-    axios.delete(BASE_URL + "deleteUser/" + row._id).then((res) => {
-      if (res.data) {
-        toast.success("record deleted");
-        handleClose();
-        getUsers();
-      } else {
-        toast("delete failed");
-      }
-    });
+
+    if(row.isAdmin){
+      toast("Sorry admin cant be deleted!")
+      return
+    }else{
+      axios.delete(BASE_URL + "deleteUser/" + row._id).then((res) => {
+        if (res.data) {
+          toast.success("record deleted");
+          handleClose();
+          getUsers();
+        } else {
+          toast("delete failed");
+        }
+      });
+
+    }
+
   };
 
   const handleSearch = (search) => {

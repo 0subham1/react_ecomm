@@ -78,7 +78,7 @@ body {
   color: aliceblue;
   height: 40px;
   text-align: center;
-}
+} 
 
 @media (max-width: 60rem) {
   #cart {
@@ -98,6 +98,9 @@ body {
 }
 
 @media(max-width:30rem){
+  #toHide{
+    display: none !important;
+  }
   .adminPanel{
     min-width:30px !important;
     margin: 5px;

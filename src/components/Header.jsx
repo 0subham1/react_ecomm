@@ -47,6 +47,10 @@ const Header = (props) => {
     setShow3(false);
   };
 
+  const [show4, setShow4] = useState(false);
+  const handleClose4 = () => {
+    setShow4(false);
+  };
   const [userInfo, setUserInfo] = useState({
     name: "",
     phone: "",
@@ -252,13 +256,13 @@ const Header = (props) => {
       </Modal>
 
       <Modal show={show2} onHide={handleClose2}>
-        <Modal.Body>
+        <Modal.Body style={{ fontSize: "1.1rem" }}>
           Hello I am subham.. <br />
           Welcome to my MERN app,
           <hr />
           Kindly Sign Up as random customer or login as
           <br />
-          <br/>
+          <br />
           userName: admin
           <br /> Password: 12
           {/* <hr /> */}
@@ -269,7 +273,7 @@ const Header = (props) => {
         </Modal.Body>
       </Modal>
 
-      <Modal show={show3} onHide={handleClose3} size="lg">
+      <Modal show={show3} onHide={handleClose3}>
         <Modal.Body>
           <h5 className="row1">
             <span> {localUserInfo?.name}'s Order List</span>{" "}
@@ -278,45 +282,35 @@ const Header = (props) => {
             </span>
           </h5>
           <br />
-          <table width="100%">
-            <tr>
-              <td>Sno.</td>
-              <td>Date</td>
-              <td>OrderId</td>
-              <td>Items</td>
-              <td>Total</td>
-            </tr>
+          <div width="100%">
             {orderList &&
               orderList.map((b, i) => {
                 return (
                   <>
-                    <tr>
-                      <td>{i + 1}</td>
-                      <td>{b.orderDate.substring(0, 10)}</td>
-                      <td>{b.orderId}</td>
-                      <td>
-                        {" "}
-                        <tr>
-                          {b &&
-                            b?.itemList?.map((a) => {
-                              return (
-                                <>
-                                  <tr>
-                                    {a.name}@ {a.price} x{a.qty}
-                                  </tr>
-                                </>
-                              );
-                            })}
-                        </tr>
-                      </td>
-                      <td>{b.total}</td>
-                    </tr>
+                    <div
+                      style={{
+                        border: "2px solid",
+                        borderRadius: "10px",
+                        padding: "10px",
+                      }}
+                    >
+                      <div className="row1">
+                        <div>{b.orderId}</div>
+                        <div>{b.orderDate.substring(0, 10)}</div>
+                      </div>
+
+                      <div className="row1">Total:{b.total}</div>
+                    </div>
                     <br />
                   </>
                 );
               })}
-          </table>
+          </div>
         </Modal.Body>
+      </Modal>
+
+      <Modal show={show4} onHide={handleClose4}>
+        <Modal.Body></Modal.Body>
       </Modal>
 
       <div className="row1 header" style={{ height: "70px" }}>

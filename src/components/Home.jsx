@@ -148,11 +148,11 @@ const Home = () => {
             className="darky"
             style={{
               display: "flex",
-              justifyContent: "space-around",
+              justifyContent: "space-around", 
               alignItems: "center",
             }}
           >
-            <span>Items</span>
+            <span id="toHide">Items</span>
             <span>
               <SearchRoundedIcon />
               <input
