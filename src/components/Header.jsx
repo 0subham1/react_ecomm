@@ -3,9 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import { BASE_URL } from "../Const";
 import axios from "axios";
-import Tooltip from "@mui/material/Tooltip";
 
-import Select from "react-select";
 import Modal from "react-bootstrap/Modal";
 import toast, { Toaster } from "react-hot-toast";
 import LinearProgress from "@mui/material/LinearProgress";
@@ -16,12 +14,8 @@ import PersonIcon from "@mui/icons-material/Person";
 import LogoutIcon from "@mui/icons-material/Logout";
 import RestoreIcon from "@mui/icons-material/Restore";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import Cart from "./Cart";
 import InfoIcon from "@mui/icons-material/Info";
 import logo from "../img/logo.png";
-import ViewHeadlineIcon from "@mui/icons-material/ViewHeadline";
-import Nav from "./Nav";
-import ModalDialog from "react-bootstrap/esm/ModalDialog";
 
 const Header = (props) => {
   let navigate = useNavigate();
@@ -229,6 +223,8 @@ const Header = (props) => {
               >
                 New Here? Sign Up
               </h5>
+            ) : style == "Edit Profile" ? (
+              <></>
             ) : (
               <h5
                 style={{ textAlign: "center" }}
@@ -257,19 +253,14 @@ const Header = (props) => {
 
       <Modal show={show2} onHide={handleClose2}>
         <Modal.Body style={{ fontSize: "1.1rem" }}>
-          Hello I am subham.. <br />
-          Welcome to my MERN app,
+          <div> Hello I am subham..</div>
+          <div> Welcome to my MERN app,</div>
           <hr />
-          Kindly Sign Up as random customer or login as
-          <br />
-          <br />
-          userName: admin
-          <br /> Password: 12
-          {/* <hr /> */}
-          {/* Project features:
-          <br />
-          * Protected Routes for admin<br/>
-          *  */}
+          <div> Kindly Sign Up as random customer or login as</div>
+          <div> userName: admin</div>
+          <div>Password: 12</div>
+          <hr />
+          <div> (upgradation to NextJs in progress)</div>
         </Modal.Body>
       </Modal>
 

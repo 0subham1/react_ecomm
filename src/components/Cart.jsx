@@ -119,12 +119,7 @@ const Cart = (props) => {
     <>
       <div>
         <h4
-          style={{
-            display: "flex",
-            justifyContent: "space-around",
-            alignItems: "center",
-          }}
-          className="darky"
+          className="row0"
         >
           <span>CART</span>{" "}
           <Badge
@@ -148,10 +143,6 @@ const Cart = (props) => {
                   <>
                     <div
                       style={{
-                        // display: "flex",
-                        // alignItems: "center",
-                        // justifyContent: "space-between",
-                        width: "300px",
                         border: "2px solid",
                         borderRadius: "6px",
                         padding: "10px",
@@ -222,7 +213,7 @@ const Cart = (props) => {
               style={{ width: "50%" }}
               onClick={() => handleSave()}
             >
-              Submit
+              Order
             </Button>
           </div>
         </Card>

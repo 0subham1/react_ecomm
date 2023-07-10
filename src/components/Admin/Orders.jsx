@@ -222,19 +222,15 @@ const Orders = () => {
       </Modal>
 
       <div style={{ width: "100%" }}>
-       
-        <DataTable
-        title="Orders List"
-        columns={columns} data={orderList} fixedHeader 
-        subHeader
-        subHeaderComponent={
-          <>
-            <TextField
-              variant="outlined"
-              label={<SearchRoundedIcon />}
-              onChange={(e) => handleSearch(e.target.value)}
-            />{" "}
-            {/* <Button
+        <h3>Orders List</h3>
+        <div className="row1">
+          <TextField
+          size="small"
+            variant="outlined"
+            label={<SearchRoundedIcon />}
+            onChange={(e) => handleSearch(e.target.value)}
+          />{" "}
+          {/* <Button
               variant="contained"
               size="small"
               onClick={() => setShow(true)}
@@ -242,9 +238,8 @@ const Orders = () => {
               <AddIcon />
               New
             </Button> */}
-          </>
-        }
-        />
+        </div>
+        <DataTable columns={columns} data={orderList} fixedHeader />
       </div>
       <Toaster />
     </>

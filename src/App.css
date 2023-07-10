@@ -5,7 +5,12 @@ body {
   font-family: "Ubuntu" !important;
   overflow: auto;
 }
+
+* {
+  margin: 4px;
+}
 .header {
+  margin: 0px !important;
   background: black;
   color: white;
   padding: 10px;
@@ -19,6 +24,15 @@ body {
 .q1 div {
   padding: 5px;
   height: 50px;
+}
+.row0 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.row3 {
+  display: flex;
+  justify-content: space-between;
 }
 .row1 {
   display: flex;
@@ -48,10 +62,8 @@ body {
 
 .adminPanel {
   margin: 10px;
-  /* padding: 10px; */
   width: 200px;
   cursor: pointer;
-  /* border: 2px solid black; */
 }
 
 .adminPanel div {
@@ -59,7 +71,7 @@ body {
 }
 
 .icon {
-  font-size: 25px !important;
+  font-size: 17px !important;
   cursor: "pointer" !important;
 }
 
@@ -73,12 +85,23 @@ body {
   cursor: pointer;
 }
 
-.darky {
-  background-color: black;
-  color: aliceblue;
-  height: 40px;
-  text-align: center;
-} 
+.mobileView {
+  display: none !important;
+}
+
+.deskView {
+  display: block !important;
+}
+
+@media (max-width: 40em) {
+  .mobileView {
+    display: flex !important;
+  }
+
+  .deskView {
+    display: none !important;
+  }
+}
 
 @media (max-width: 60rem) {
   #cart {
@@ -88,7 +111,7 @@ body {
     display: block !important;
   }
 
-  #cartDiv{
+  #cartDiv {
     width: 100% !important;
   }
 
@@ -97,19 +120,18 @@ body {
   }
 }
 
-@media(max-width:30rem){
-  #toHide{
+@media (max-width: 30rem) {
+  #toHide {
     display: none !important;
   }
-  .adminPanel{
-    min-width:30px !important;
+  .adminPanel {
+    min-width: 30px !important;
     margin: 5px;
   }
-  .adminPanel div{
-   padding-left: 5px !important;
+  .adminPanel div {
+    padding-left: 5px !important;
   }
   .navKeys {
     display: none !important;
   }
-
 }

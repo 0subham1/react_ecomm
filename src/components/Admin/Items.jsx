@@ -68,7 +68,10 @@ const Items = () => {
       name: "ACTION",
       selector: (row) => (
         <div>
-          <EditIcon onClick={() => handleEdit(row)} className="icon" />
+          <EditIcon
+            onClick={() => handleEdit(row)}
+            className="icon"
+          />
           &nbsp;
           {/* <DeleteIcon onClick={() => handleDelete(row)} className="icon" /> */}
         </div>
@@ -220,30 +223,24 @@ const Items = () => {
       </Modal>
 
       <div style={{ width: "100%" }}>
-        <DataTable
-          title="Item List"
-          columns={columns}
-          data={itemList}
-          fixedHeader
-          subHeader
-          subHeaderComponent={
-            <>
-              <TextField
-                variant="outlined"
-                label={<SearchRoundedIcon />}
-                onChange={(e) => handleSearch(e.target.value)}
-              />{" "}
-              <Button
-                variant="contained"
-                size="small"
-                onClick={() => setShow(true)}
-              >
-                <AddIcon />
-                New
-              </Button>
-            </>
-          }
-        />
+        <h3>Item List</h3>
+        <div className="row1">
+          <TextField
+            size="small"
+            variant="outlined"
+            label={<SearchRoundedIcon />}
+            onChange={(e) => handleSearch(e.target.value)}
+          />
+          <Button
+            variant="contained"
+            size="small"
+            onClick={() => setShow(true)}
+          >
+            <AddIcon />
+            New
+          </Button>
+        </div>
+        <DataTable columns={columns} data={itemList} fixedHeader />
       </div>
       <Toaster />
     </>

@@ -5,31 +5,18 @@ import { BASE_URL } from "../Const";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 
 import axios from "axios";
-import Select from "react-select";
-import Modal from "react-bootstrap/Modal";
+import {Modal} from "react-bootstrap";
 import toast, { Toaster } from "react-hot-toast";
-
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
 
 import CircularProgress from "@mui/material/CircularProgress";
 import Button from "@mui/material/Button";
-import LinearProgress from "@mui/material/LinearProgress";
-import TextField from "@mui/material/TextField";
 
-import Tooltip from "@mui/material/Tooltip";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
 import Badge from "@mui/material/Badge";
-import Dropdown from "react-bootstrap/Dropdown";
-import Swal from "sweetalert2";
-import PersonIcon from "@mui/icons-material/Person";
-import LogoutIcon from "@mui/icons-material/Logout";
+
 import Cart from "./Cart";
 import Carousel from "react-bootstrap/Carousel";
-
-import Nav from "./Nav";
 import { Card } from "@mui/material";
 import food from "../img/food.jpg";
 import pizza from "../img/pizza.jpg";
@@ -42,13 +29,12 @@ const Home = () => {
   let aa = localStorage?.getItem("localCart");
   let LC;
   if (aa) {
-    LC = JSON?.parse( localStorage?.getItem("localCart"));
+    LC = JSON?.parse(localStorage?.getItem("localCart"));
   } else {
     LC = [];
-    localStorage.setItem("localCart",[]);
+    localStorage.setItem("localCart", []);
   }
 
-  const [loading, setLoading] = useState(false);
   const [cartItemList, setCartItemList] = useState(LC);
   const [list, setList] = useState([]);
   const [list2, setList2] = useState([]);
@@ -60,12 +46,10 @@ const Home = () => {
   useEffect(() => {
     getProducts();
   }, []);
-  
+
   const getProducts = () => {
-    setLoading(true)
     axios.get(BASE_URL + "items").then((res) => {
-      if(res.data){
-        setLoading(false)
+      if (res.data) {
         console.log(res);
         setList(res.data);
         setList2(res.data);
@@ -78,7 +62,6 @@ const Home = () => {
   };
 
   const handleAddToCart = (item) => {
-    
     var deepCopy = JSON.parse(JSON.stringify(item));
     let exist = cartItemList?.some((a) => a._id === item._id);
     if (!exist) {
@@ -102,13 +85,16 @@ const Home = () => {
     console.log(cartItemList, "cartItemList");
   }, [cartItemList]);
 
-
-
   return (
     <div style={{ width: "100%" }}>
       <Modal show={show} onHide={handleClose}>
         <Modal.Body className="dark">
-          <h4 className="row1"><span></span><span className="pointer" onClick={handleClose}>X</span> </h4>
+          <h4 className="row1">
+            <span></span>
+            <span className="pointer" onClick={handleClose}>
+              X
+            </span>{" "}
+          </h4>
           <Cart
             cartItemList={cartItemList}
             handleParentSetCart={handleParentSetCart}
@@ -142,23 +128,16 @@ const Home = () => {
         </Carousel.Item>
       </Carousel>
 
-      <div className="row2" style={{ width: "100%" }}>
-        <Card style={{ margin: "10px", width: "400px" }} id="itemList">
-          <h4
-            className="darky"
-            style={{
-              display: "flex",
-              justifyContent: "space-around", 
-              alignItems: "center",
-            }}
-          >
+      <div className="row3" style={{ width: "100%" }}>
+        <Card style={{ margin: "10px", width: "70%" }} id="itemList">
+          <h4 className="row0">
             <span id="toHide">Items</span>
-            <span>
-              <SearchRoundedIcon />
-              <input
+            <span style={{ background: "white" }}>
+              <TextField
+                size="small"
+                color="primary"
+                variant="outlined"
                 label={<SearchRoundedIcon />}
-                className="darky"
-                style={{ width: "200px" }}
                 placeholder="Search"
                 onChange={(e) => handleSearch(e.target.value)}
               />
@@ -175,9 +154,8 @@ const Home = () => {
             </span>
           </h4>
           <div style={{ overflowY: "scroll", maxHeight: "87vh" }}>
-            {loading?<CircularProgress/>:<></>}
-            {list &&
-              list.map((a, i) => {
+            {list.length > 0 ? (
+              list?.map((a, i) => {
                 return (
                   <>
                     <div
@@ -193,7 +171,7 @@ const Home = () => {
                     >
                       <div>
                         <img
-                          src={a?.img==""||a.img==null ? food : a.img}
+                          src={a?.img == "" || a.img == null ? food : a.img}
                           width="100px"
                           height="100px"
                           style={{ borderRadius: "15px" }}
@@ -218,11 +196,14 @@ const Home = () => {
                     <br />
                   </>
                 );
-              })}
+              })
+            ) : (
+              <CircularProgress />
+            )}
           </div>
         </Card>
 
-        <Card style={{ margin: "10px", width: "350px" }} id="cart">
+        <Card style={{ margin: "10px", width: "30%" }} id="cart">
           <Cart
             cartItemList={cartItemList}
             handleParentSetCart={handleParentSetCart}

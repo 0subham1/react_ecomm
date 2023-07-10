@@ -101,10 +101,10 @@ const Users = () => {
   const handleDelete = (row) => {
     console.log(row, "row");
 
-    if(row.isAdmin){
-      toast("Sorry admin cant be deleted!")
-      return
-    }else{
+    if (row.isAdmin) {
+      toast("Sorry admin cant be deleted!");
+      return;
+    } else {
       axios.delete(BASE_URL + "deleteUser/" + row._id).then((res) => {
         if (res.data) {
           toast.success("record deleted");
@@ -114,9 +114,7 @@ const Users = () => {
           toast("delete failed");
         }
       });
-
     }
-
   };
 
   const handleSearch = (search) => {
@@ -230,30 +228,24 @@ const Users = () => {
       </Modal>
 
       <div style={{ width: "100%" }}>
-        <DataTable
-        title="Users List"
-          columns={columns}
-          data={userList}
-          fixedHeader
-          subHeader
-          subHeaderComponent={
-            <>
-              <TextField
-                variant="outlined"
-                label={<SearchRoundedIcon />}
-                onChange={(e) => handleSearch(e.target.value)}
-              />{" "}
-              <Button
-                variant="contained"
-                size="small"
-                onClick={() => setShow(true)}
-              >
-                <AddIcon />
-                New
-              </Button>
-            </>
-          }
-        />
+        <h3>Users List</h3>
+        <div className="row1">
+          <TextField
+            size="small"
+            variant="outlined"
+            label={<SearchRoundedIcon />}
+            onChange={(e) => handleSearch(e.target.value)}
+          />{" "}
+          <Button
+            variant="contained"
+            size="small"
+            onClick={() => setShow(true)}
+          >
+            <AddIcon />
+            New
+          </Button>
+        </div>
+        <DataTable columns={columns} data={userList} fixedHeader />
       </div>
       <Toaster />
     </>

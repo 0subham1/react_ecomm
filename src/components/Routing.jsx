@@ -8,41 +8,37 @@ import Users from "./Admin/Users";
 import Orders from "./Admin/Orders";
 import AccessDenied from "./AccessDenied";
 import Nav from "./Nav";
+import Nav2 from "./Nav2";
 const Routing = () => {
   const localUserInfo = JSON.parse(localStorage.getItem("localUserInfo"));
   return (
     <>
       <Header />
+      <Nav2 />
+      <br />
       <div style={{ display: "flex" }}>
         {localUserInfo?.isAdmin ? <Nav /> : <></>}
 
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route exact path="*" element={<Home />} />
-          {localUserInfo?.isAdmin ? (
-            <>
-              <Route exact path="/Items" element={<Items />} />
-              <Route exact path="/Users" element={<Users />} />
-              <Route exact path="/Orders" element={<Orders />} />
-            </>
-          ) : (
-            <>
-              <Route exact path="/Items" element={<AccessDenied />} />
-              <Route exact path="/Users" element={<AccessDenied />} />
-              <Route exact path="/Orders" element={<AccessDenied />} />
-            </>
-          )}
+          <Route
+            exact
+            path="/Items"
+            element={localUserInfo?.isAdmin ? <Items /> : <AccessDenied />}
+          />
+          <Route
+            exact
+            path="/Users"
+            element={localUserInfo?.isAdmin ? <Users /> : <AccessDenied />}
+          />
+          <Route
+            exact
+            path="/Orders"
+            element={localUserInfo?.isAdmin ? <Orders /> : <AccessDenied />}
+          />
         </Routes>
       </div>
-      {/* <div
-        className="darky"
-        style={{
-          height: "30px",
-          bottom: "0",
-          position: "sticky",
-          width: "100%",
-        }}
-      ></div> */}
     </>
   );
 };
