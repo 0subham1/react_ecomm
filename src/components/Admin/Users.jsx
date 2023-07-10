@@ -10,6 +10,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import Modal from "react-bootstrap/Modal";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
+import { CircularProgress } from "@mui/material";
 
 const Users = () => {
   const [userList, setUserList] = useState([]);
@@ -152,9 +153,9 @@ const Users = () => {
   return (
     <>
       <Modal show={show} onHide={handleClose}>
+      <Modal.Header closeButton={true}>{edit ? "EDIT" : "NEW"} USER</Modal.Header>
+
         <Modal.Body>
-          <h5>{edit ? "EDIT" : "NEW"} ITEM</h5>
-          <br />
           <div className="q1">
             <div>
               <TextField
@@ -236,16 +237,20 @@ const Users = () => {
             label={<SearchRoundedIcon />}
             onChange={(e) => handleSearch(e.target.value)}
           />{" "}
-          <Button
+          {/* <Button
             variant="contained"
             size="small"
             onClick={() => setShow(true)}
           >
             <AddIcon />
             New
-          </Button>
+          </Button> */}
         </div>
-        <DataTable columns={columns} data={userList} fixedHeader />
+        {userList.length > 0 ? (
+          <DataTable columns={columns} data={userList} fixedHeader />
+        ) : (
+          <CircularProgress />
+        )}
       </div>
       <Toaster />
     </>

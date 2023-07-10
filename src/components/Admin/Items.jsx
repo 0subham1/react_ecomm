@@ -10,6 +10,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import Modal from "react-bootstrap/Modal";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
+import { CircularProgress } from "@mui/material";
 const Items = () => {
   const [itemList, setItemList] = useState([]);
   const [itemList2, setItemList2] = useState([]);
@@ -68,10 +69,7 @@ const Items = () => {
       name: "ACTION",
       selector: (row) => (
         <div>
-          <EditIcon
-            onClick={() => handleEdit(row)}
-            className="icon"
-          />
+          <EditIcon onClick={() => handleEdit(row)} className="icon" />
           &nbsp;
           {/* <DeleteIcon onClick={() => handleDelete(row)} className="icon" /> */}
         </div>
@@ -147,9 +145,9 @@ const Items = () => {
   return (
     <>
       <Modal show={show} onHide={handleClose}>
+      <Modal.Header closeButton={true}>{edit ? "EDIT" : "NEW"} ITEM</Modal.Header>
+
         <Modal.Body>
-          <h5>{edit ? "EDIT" : "NEW"} ITEM</h5>
-          <br />
           <div className="q1">
             <div>
               <TextField
@@ -191,7 +189,7 @@ const Items = () => {
               <TextField
                 fullWidth={true}
                 variant="outlined"
-                label="Img"
+                label="Img Src"
                 name="img"
                 value={itemInfo.img}
                 onChange={(e) => handleData(e)}
@@ -240,7 +238,11 @@ const Items = () => {
             New
           </Button>
         </div>
-        <DataTable columns={columns} data={itemList} fixedHeader />
+        {itemList.length > 0 ? (
+          <DataTable columns={columns} data={itemList} fixedHeader />
+        ) : (
+          <CircularProgress />
+        )}
       </div>
       <Toaster />
     </>

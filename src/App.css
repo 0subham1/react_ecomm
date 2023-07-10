@@ -30,10 +30,7 @@ body {
   justify-content: space-between;
   align-items: center;
 }
-.row3 {
-  display: flex;
-  justify-content: space-between;
-}
+
 .row1 {
   display: flex;
   justify-content: space-between;
@@ -45,6 +42,16 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+}
+
+.row3 {
+  display: flex;
+  justify-content: space-between;
+}
+
+.row4 {
+  display: flex;
+  justify-content: space-around;
 }
 .card {
   display: flex;
@@ -101,6 +108,13 @@ body {
   .deskView {
     display: none !important;
   }
+  #cartBox{
+    height: 30vh !important;
+    overflow-y: "auto" !important;
+  }
+  /* #cartOuterBox{
+    height: 100% !important;
+  } */
 }
 
 @media (max-width: 60rem) {

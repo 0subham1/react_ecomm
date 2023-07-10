@@ -41,10 +41,6 @@ const Header = (props) => {
     setShow3(false);
   };
 
-  const [show4, setShow4] = useState(false);
-  const handleClose4 = () => {
-    setShow4(false);
-  };
   const [userInfo, setUserInfo] = useState({
     name: "",
     phone: "",
@@ -169,10 +165,10 @@ const Header = (props) => {
   return (
     <>
       <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton={true}>{style}</Modal.Header>
+
         <Modal.Body>
           <form onSubmit={handleSave}>
-            <div>{style}</div>
-            <br />
             <div className="q1">
               <div>
                 <TextField
@@ -252,10 +248,10 @@ const Header = (props) => {
       </Modal>
 
       <Modal show={show2} onHide={handleClose2}>
+        <Modal.Header closeButton={true}>Hello I am subham..</Modal.Header>
+
         <Modal.Body style={{ fontSize: "1.1rem" }}>
-          <div> Hello I am subham..</div>
           <div> Welcome to my MERN app,</div>
-          <hr />
           <div> Kindly Sign Up as random customer or login as</div>
           <div> userName: admin</div>
           <div>Password: 12</div>
@@ -290,7 +286,7 @@ const Header = (props) => {
                         <div>{b.orderDate.substring(0, 10)}</div>
                       </div>
 
-                      <div className="row1">Total:{b.total}</div>
+                      <div className="row1">Total: {b.total}</div>
                     </div>
                     <br />
                   </>
@@ -300,15 +296,12 @@ const Header = (props) => {
         </Modal.Body>
       </Modal>
 
-      <Modal show={show4} onHide={handleClose4}>
-        <Modal.Body></Modal.Body>
-      </Modal>
-
       <div className="row1 header" style={{ height: "70px" }}>
-        <h4>
+        <h4 className="row0">
           <span className="pointer" onClick={() => navigate("/")}>
             {" "}
-            <img src={logo} width="50px" /> FoodCart{" "}
+            <img src={logo} width="50px" />{" "}
+            <span className="navKeys">FoodCart</span>
           </span>
           <InfoIcon className="pointer" onClick={() => setShow2(true)} />
         </h4>

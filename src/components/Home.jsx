@@ -5,7 +5,7 @@ import { BASE_URL } from "../Const";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 
 import axios from "axios";
-import {Modal} from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import toast, { Toaster } from "react-hot-toast";
 import TextField from "@mui/material/TextField";
 
@@ -88,13 +88,9 @@ const Home = () => {
   return (
     <div style={{ width: "100%" }}>
       <Modal show={show} onHide={handleClose}>
-        <Modal.Body className="dark">
-          <h4 className="row1">
-            <span></span>
-            <span className="pointer" onClick={handleClose}>
-              X
-            </span>{" "}
-          </h4>
+        <Modal.Header closeButton={true}>CART</Modal.Header>
+
+        <Modal.Body className="dark" style={{height:"100%"}}>
           <Cart
             cartItemList={cartItemList}
             handleParentSetCart={handleParentSetCart}
@@ -157,12 +153,11 @@ const Home = () => {
             {list.length > 0 ? (
               list?.map((a, i) => {
                 return (
-                  <>
+                  <div >
                     <div
                       style={{
                         display: "flex",
                         alignItems: "center",
-
                         justifyContent: "space-between",
                         border: "2px solid",
                         borderRadius: "6px",
@@ -178,7 +173,7 @@ const Home = () => {
                         />
                       </div>
                       <div>
-                        <div style={{ width: "150px" }}>{a.name}</div>
+                        <div >{a.name}</div>
                         <div>Price: {a.price}</div>
                       </div>
                       <Button
@@ -194,7 +189,7 @@ const Home = () => {
                       </Button>
                     </div>
                     <br />
-                  </>
+                  </div>
                 );
               })
             ) : (

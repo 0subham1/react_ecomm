@@ -10,6 +10,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import Modal from "react-bootstrap/Modal";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
+import { CircularProgress } from "@mui/material";
 
 const Orders = () => {
   const [orderList, setOrderList] = useState([]);
@@ -146,9 +147,9 @@ const Orders = () => {
   return (
     <>
       <Modal show={show} onHide={handleClose}>
+      <Modal.Header closeButton={true}>{edit ? "EDIT" : "NEW"} ORDER</Modal.Header>
+
         <Modal.Body>
-          <h5>{edit ? "EDIT" : "NEW"} ITEM</h5>
-          <br />
           <div className="q1">
             <div>
               <TextField
@@ -239,7 +240,11 @@ const Orders = () => {
               New
             </Button> */}
         </div>
-        <DataTable columns={columns} data={orderList} fixedHeader />
+        {orderList.length > 0 ? (
+          <DataTable columns={columns} data={orderList} fixedHeader />
+        ) : (
+          <CircularProgress />
+        )}
       </div>
       <Toaster />
     </>

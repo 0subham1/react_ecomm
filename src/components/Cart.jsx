@@ -30,10 +30,10 @@ const Cart = (props) => {
   let aa = localStorage?.getItem("localCart");
   let LC;
   if (aa) {
-    LC = JSON?.parse( localStorage?.getItem("localCart"));
+    LC = JSON?.parse(localStorage?.getItem("localCart"));
   } else {
     LC = [];
-    localStorage.setItem("localCart",[]);
+    localStorage.setItem("localCart", []);
   }
 
   const [total, setTotal] = useState(0);
@@ -69,7 +69,7 @@ const Cart = (props) => {
       if (res.data) {
         toast.success("Order placed successfully");
         handleClearCart();
-        props.handleClose()
+        props.handleClose();
       } else {
         toast("error in placing order");
       }
@@ -117,11 +117,9 @@ const Cart = (props) => {
 
   return (
     <>
-      <div>
-        <h4
-          className="row0"
-        >
-          <span>CART</span>{" "}
+      <div id="cartOuterBox">
+        <h4 className="row0 navKeys">
+          <span>CART</span>
           <Badge
             badgeContent={cartItemList?.length}
             color="primary"
@@ -135,7 +133,10 @@ const Cart = (props) => {
             </Tooltip>
           </Badge>
         </h4>
-        <div style={{ overflowY: "auto", height: "60vh", padding: "10px" }}>
+        <div
+          id="cartBox"
+          style={{ overflowY: "auto", height: "60vh", padding: "10px" }}
+        >
           {cartItemList?.length > 0
             ? cartItemList &&
               cartItemList.map((a, i) => {
@@ -206,7 +207,7 @@ const Cart = (props) => {
             <div>Total:</div>
             <div>₹ {total}</div>
           </h5>
-          <div style={{ textAlign: "center" }}>
+          <div style={{ textAlign: "center" }} className="row4">
             <Button
               variant="contained"
               size="small"
@@ -215,6 +216,19 @@ const Cart = (props) => {
             >
               Order
             </Button>
+            <Badge
+              className="mobileView"
+              badgeContent={cartItemList?.length}
+              color="primary"
+              style={{ zIndex: "100" }}
+            >
+              <Tooltip title="Clear Cart">
+                <RemoveShoppingCartIcon
+                  style={{ cursor: "pointer", color: "tomato" }}
+                  onClick={handleClearCart}
+                />
+              </Tooltip>
+            </Badge>
           </div>
         </Card>
       </div>
