@@ -135,7 +135,7 @@ const Cart = (props) => {
         </h4>
         <div
           id="cartBox"
-          style={{ overflowY: "auto", height: "60vh", padding: "10px" }}
+          style={{ overflowY: "auto", height: "40vh", padding: "10px" }}
         >
           {cartItemList?.length > 0
             ? cartItemList &&
@@ -154,36 +154,31 @@ const Cart = (props) => {
                         style={{
                           display: "flex",
                           justifyContent: "space-between",
-                        }}
-                      >
-                        <h5 style={{ width: "150px" }}>{a.name}</h5>{" "}
-                        <CancelIcon
-                          className="icon"
-                          onClick={() => handleRemoveItem(i)}
-                        />
-                      </div>
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
                           alignItems: "end",
                         }}
                       >
                         <div>
-                          <div>Qty: {a.qty}</div>
-                          <div>Price: {a.price}</div>
+                          <div style={{ width: "7rem" }}>{a.name}</div>
                         </div>
                         <div style={{ display: "flex" }}>
                           <RemoveCircleIcon
                             className="icon"
                             onClick={(e) => handleChangeQty(e, i, "sub")}
                           />
-                          &nbsp;
+                          {a.qty}
                           <AddCircleIcon
                             className="icon"
                             onClick={(e) => handleChangeQty(e, i, "add")}
                           />
-                        </div>{" "}
+                        </div>
+                        <div>₹ {a.qty * a.price}</div>
+                        <div>
+                          {" "}
+                          <CancelIcon
+                            className="icon"
+                            onClick={() => handleRemoveItem(i)}
+                          />
+                        </div>
                       </div>
                     </div>
                     <br />

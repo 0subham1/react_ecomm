@@ -261,14 +261,11 @@ const Header = (props) => {
       </Modal>
 
       <Modal show={show3} onHide={handleClose3}>
+        <Modal.Header closeButton={true}>
+          {localUserInfo?.name}'s Order List
+        </Modal.Header>
+
         <Modal.Body>
-          <h5 className="row1">
-            <span> {localUserInfo?.name}'s Order List</span>{" "}
-            <span onClick={handleClose3} className="pointer">
-              X
-            </span>
-          </h5>
-          <br />
           <div width="100%">
             {orderList &&
               orderList.map((b, i) => {
@@ -284,9 +281,8 @@ const Header = (props) => {
                       <div className="row1">
                         <div>{b.orderId}</div>
                         <div>{b.orderDate.substring(0, 10)}</div>
+                        <div style={{width:"100px",textAlign:"right"}}>₹ {b.total}</div>
                       </div>
-
-                      <div className="row1">Total: {b.total}</div>
                     </div>
                     <br />
                   </>

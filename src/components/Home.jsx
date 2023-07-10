@@ -5,7 +5,7 @@ import { BASE_URL } from "../Const";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 
 import axios from "axios";
-import { Modal } from "react-bootstrap";
+import { Col, Modal, Row } from "react-bootstrap";
 import toast, { Toaster } from "react-hot-toast";
 import TextField from "@mui/material/TextField";
 
@@ -90,7 +90,7 @@ const Home = () => {
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton={true}>CART</Modal.Header>
 
-        <Modal.Body className="dark" style={{height:"100%"}}>
+        <Modal.Body className="dark" style={{ height: "100%" }}>
           <Cart
             cartItemList={cartItemList}
             handleParentSetCart={handleParentSetCart}
@@ -150,51 +150,51 @@ const Home = () => {
             </span>
           </h4>
           <div style={{ overflowY: "scroll", maxHeight: "87vh" }}>
-            {list.length > 0 ? (
-              list?.map((a, i) => {
-                return (
-                  <div >
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                        border: "2px solid",
-                        borderRadius: "6px",
-                        padding: "10px",
-                      }}
-                    >
-                      <div>
+            <Row>
+              {list.length > 0 ? (
+                list?.map((a, i) => {
+                  return (
+                    <Col>
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                          border: "2px solid",
+                          borderRadius: "6px",
+                          padding: "10px",
+                        }}
+                      >
                         <img
                           src={a?.img == "" || a.img == null ? food : a.img}
                           width="100px"
                           height="100px"
                           style={{ borderRadius: "15px" }}
                         />
+
+                        <div>
+                          <div>{a.name}</div>
+                          <div>Price: {a.price}</div>
+                        </div>
+                        <Button
+                          variant="contained"
+                          size="small"
+                          onClick={() =>
+                            localUserInfo
+                              ? handleAddToCart(a, i)
+                              : toast("Kindly Login")
+                          }
+                        >
+                          add
+                        </Button>
                       </div>
-                      <div>
-                        <div >{a.name}</div>
-                        <div>Price: {a.price}</div>
-                      </div>
-                      <Button
-                        variant="contained"
-                        size="small"
-                        onClick={() =>
-                          localUserInfo
-                            ? handleAddToCart(a, i)
-                            : toast("Kindly Login")
-                        }
-                      >
-                        add
-                      </Button>
-                    </div>
-                    <br />
-                  </div>
-                );
-              })
-            ) : (
-              <CircularProgress />
-            )}
+                    </Col>
+                  );
+                })
+              ) : (
+                <CircularProgress />
+              )}
+            </Row>
           </div>
         </Card>
 
