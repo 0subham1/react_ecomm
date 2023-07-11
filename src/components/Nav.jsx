@@ -4,15 +4,13 @@ import { useNavigate } from "react-router-dom";
 import AccessibilityNewIcon from "@mui/icons-material/AccessibilityNew";
 import FastfoodIcon from "@mui/icons-material/Fastfood";
 import GradingIcon from "@mui/icons-material/Grading";
-const Nav = () => {
+const Nav = ({ css }) => {
   const navigate = useNavigate();
   return (
     <>
-      <Card className="adminPanel deskView">
-        <h4 >Admin Panel</h4>
-        <br />
+      <Card className={css}>
         <div onClick={() => navigate("/Items")} className="hover">
-          <FastfoodIcon /> <span >Items</span>
+          <FastfoodIcon /> <span>Items</span>
         </div>
         <br />{" "}
         <div onClick={() => navigate("/Orders")} className="hover">
@@ -20,7 +18,7 @@ const Nav = () => {
         </div>
         <br />
         <div onClick={() => navigate("/Users")} className="hover">
-          <AccessibilityNewIcon /> <span >Users</span>
+          <AccessibilityNewIcon /> <span>Users</span>
         </div>
       </Card>
     </>

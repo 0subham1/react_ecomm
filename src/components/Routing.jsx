@@ -8,7 +8,6 @@ import Users from "./Admin/Users";
 import Orders from "./Admin/Orders";
 import AccessDenied from "./AccessDenied";
 import Nav from "./Nav";
-import Nav2 from "./Nav2";
 const Routing = () => {
   const [poke, setPoke] = useState(false);
   const [poke2, setPoke2] = useState(false);
@@ -22,11 +21,11 @@ const Routing = () => {
   return (
     <>
       <Header poke={poke} poke2={poke2} />
-    
-      {localUserInfo?.isAdmin ? <Nav2 /> : <></>}
+
+      {localUserInfo?.isAdmin ? <Nav css="row1 mobileView" /> : <></>}
       <br />
       <div style={{ display: "flex" }}>
-        {localUserInfo?.isAdmin ? <Nav /> : <></>}
+        {localUserInfo?.isAdmin ? <Nav css="adminPanel deskView" /> : <></>}
 
         <Routes>
           <Route exact path="/" element={<Home handlePoke={handlePoke} />} />

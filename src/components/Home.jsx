@@ -90,7 +90,7 @@ const Home = (props) => {
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton={true}>CART</Modal.Header>
 
-        <Modal.Body>
+        <Modal.Body style={{padding:"0px"}}>
           <Cart
             cartItemList={cartItemList}
             handleParentSetCart={handleParentSetCart}

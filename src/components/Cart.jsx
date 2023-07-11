@@ -133,10 +133,7 @@ const Cart = (props) => {
             </Tooltip>
           </Badge>
         </h4>
-        <div
-          id="cartBox"
-          style={{ overflowY: "auto", height: "40vh", padding: "10px" }}
-        >
+        <div id="cartBox" style={{ overflowY: "auto", height: "40vh" }}>
           {cartItemList?.length > 0
             ? cartItemList &&
               cartItemList.map((a, i) => {
@@ -146,7 +143,8 @@ const Cart = (props) => {
                       style={{
                         border: "2px solid",
                         borderRadius: "6px",
-                        padding: "10px",
+                        padding:"0px",
+                        margin:"0px",
                       }}
                       id="cartDiv"
                     >
@@ -154,12 +152,11 @@ const Cart = (props) => {
                         style={{
                           display: "flex",
                           justifyContent: "space-between",
-                          alignItems: "end",
+                          alignItems: "center",
                         }}
                       >
-                        <div>
-                          <div style={{ width: "7rem" }}>{a.name}</div>
-                        </div>
+                        <div style={{ width: "6rem" }}>{a.name}</div>
+
                         <div style={{ display: "flex" }}>
                           <RemoveCircleIcon
                             className="icon"
@@ -171,14 +168,14 @@ const Cart = (props) => {
                             onClick={(e) => handleChangeQty(e, i, "add")}
                           />
                         </div>
-                        <div>₹ {a.qty * a.price}</div>
-                        <div>
-                          {" "}
-                          <CancelIcon
-                            className="icon"
-                            onClick={() => handleRemoveItem(i)}
-                          />
+                        <div style={{ display: "flex" }}>
+                          ₹ {a.qty * a.price}
                         </div>
+
+                        <CancelIcon
+                          className="icon"
+                          onClick={() => handleRemoveItem(i)}
+                        />
                       </div>
                     </div>
                     <br />
