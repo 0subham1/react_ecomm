@@ -23,7 +23,7 @@ import pizza from "../img/pizza.jpg";
 import pizza2 from "../img/pizza2.jpg";
 console.log(BASE_URL, "BASE_URL");
 
-const Home = () => {
+const Home = (props) => {
   const localUserInfo = JSON?.parse(localStorage.getItem("localUserInfo"));
 
   let aa = localStorage?.getItem("localCart");
@@ -90,7 +90,7 @@ const Home = () => {
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton={true}>CART</Modal.Header>
 
-        <Modal.Body className="dark" style={{ height: "100%" }}>
+        <Modal.Body>
           <Cart
             cartItemList={cartItemList}
             handleParentSetCart={handleParentSetCart}
@@ -125,7 +125,7 @@ const Home = () => {
       </Carousel>
 
       <div className="row3" style={{ width: "100%" }}>
-        <Card style={{ margin: "10px", width: "70%" }} id="itemList">
+        <Card style={{ width: "70%" }} id="itemList">
           <h4 className="row0">
             <span id="toHide">Items</span>
             <span style={{ background: "white" }}>
@@ -156,13 +156,12 @@ const Home = () => {
                   return (
                     <Col>
                       <div
+                        className="row0"
                         style={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "space-between",
                           border: "2px solid",
                           borderRadius: "6px",
                           padding: "10px",
+                          width: "22rem",
                         }}
                       >
                         <img
@@ -182,7 +181,7 @@ const Home = () => {
                           onClick={() =>
                             localUserInfo
                               ? handleAddToCart(a, i)
-                              : toast("Kindly Login")
+                              : props.handlePoke(true)
                           }
                         >
                           add
@@ -198,7 +197,7 @@ const Home = () => {
           </div>
         </Card>
 
-        <Card style={{ margin: "10px", width: "30%" }} id="cart">
+        <Card style={{ width: "30%" }} id="cart">
           <Cart
             cartItemList={cartItemList}
             handleParentSetCart={handleParentSetCart}

@@ -117,7 +117,7 @@ const Cart = (props) => {
 
   return (
     <>
-      <div id="cartOuterBox">
+      <div>
         <h4 className="row0 navKeys">
           <span>CART</span>
           <Badge

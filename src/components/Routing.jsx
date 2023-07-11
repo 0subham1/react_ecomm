@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "./Home";
 import Header from "./Header";
@@ -10,18 +10,27 @@ import AccessDenied from "./AccessDenied";
 import Nav from "./Nav";
 import Nav2 from "./Nav2";
 const Routing = () => {
+  const [poke, setPoke] = useState(false);
+  const [poke2, setPoke2] = useState(false);
   const localUserInfo = JSON.parse(localStorage.getItem("localUserInfo"));
+
+  const handlePoke = (a) => {
+    console.log(a, "key");
+    setPoke(!poke);
+    setPoke2(a);
+  };
   return (
     <>
-      <Header />
-      <Nav2 />
+      <Header poke={poke} poke2={poke2} />
+    
+      {localUserInfo?.isAdmin ? <Nav2 /> : <></>}
       <br />
       <div style={{ display: "flex" }}>
         {localUserInfo?.isAdmin ? <Nav /> : <></>}
 
         <Routes>
-          <Route exact path="/" element={<Home />} />
-          <Route exact path="*" element={<Home />} />
+          <Route exact path="/" element={<Home handlePoke={handlePoke} />} />
+          <Route exact path="*" element={<Home handlePoke={handlePoke} />} />
           <Route
             exact
             path="/Items"

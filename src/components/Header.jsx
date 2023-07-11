@@ -17,7 +17,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import InfoIcon from "@mui/icons-material/Info";
 import logo from "../img/logo.png";
 
-const Header = (props) => {
+const Header = ({ poke, poke2 }) => {
   let navigate = useNavigate();
   const localUserInfo = JSON.parse(localStorage.getItem("localUserInfo"));
 
@@ -47,6 +47,10 @@ const Header = (props) => {
     password: "",
   });
 
+  useEffect(() => {
+    poke2 && setShow(true);
+  }, [poke]);
+  console.log(poke, poke2, "p poke2");
   const handleLogout = () => {
     Swal.fire({
       title: " Logout ?",
@@ -76,6 +80,10 @@ const Header = (props) => {
       name: userInfo.name.toLocaleLowerCase(),
       password: userInfo.password,
     };
+if(!data.name||!data.password){
+  toast.error("Please fill both fields")
+  return
+}
 
     if (style == "Sign In") {
       axios.post(BASE_URL + "login", data).then((res) => {
@@ -106,7 +114,6 @@ const Header = (props) => {
           toast.success("SignUp UnSuccessful");
           setLoading(false);
         }
-        // localStorage.setItem("userInfo", JSON.stringify(result));
       });
     } else {
       axios
@@ -124,11 +131,8 @@ const Header = (props) => {
             toast("user not updated");
             setLoading(false);
           }
-          // localStorage.setItem("userInfo", JSON.stringify(result));
         });
     }
-
-    // console.log(result,"result")
   };
 
   const handleSignIn = () => {
@@ -161,7 +165,6 @@ const Header = (props) => {
     });
   };
 
-  console.log(orderList, "sss");
   return (
     <>
       <Modal show={show} onHide={handleClose}>
@@ -281,7 +284,9 @@ const Header = (props) => {
                       <div className="row1">
                         <div>{b.orderId}</div>
                         <div>{b.orderDate.substring(0, 10)}</div>
-                        <div style={{width:"100px",textAlign:"right"}}>₹ {b.total}</div>
+                        <div style={{ width: "100px", textAlign: "right" }}>
+                          ₹ {b.total}
+                        </div>
                       </div>
                     </div>
                     <br />

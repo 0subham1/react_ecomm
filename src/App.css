@@ -68,7 +68,6 @@ body {
 }
 
 .adminPanel {
-  margin: 10px;
   width: 200px;
   cursor: pointer;
 }
@@ -112,9 +111,7 @@ body {
     height: 30vh !important;
     overflow-y: "auto" !important;
   }
-  /* #cartOuterBox{
-    height: 100% !important;
-  } */
+
 }
 
 @media (max-width: 60rem) {
@@ -140,7 +137,6 @@ body {
   }
   .adminPanel {
     min-width: 30px !important;
-    margin: 5px;
   }
   .adminPanel div {
     padding-left: 5px !important;
