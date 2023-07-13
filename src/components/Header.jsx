@@ -80,10 +80,10 @@ const Header = ({ poke, poke2 }) => {
       name: userInfo.name.toLocaleLowerCase(),
       password: userInfo.password,
     };
-if(!data.name||!data.password){
-  toast.error("Please fill both fields")
-  return
-}
+    if (!data.name || !data.password) {
+      toast.error("Please fill both fields");
+      return;
+    }
 
     if (style == "Sign In") {
       axios.post(BASE_URL + "login", data).then((res) => {
@@ -268,7 +268,7 @@ if(!data.name||!data.password){
           {localUserInfo?.name}'s Order List
         </Modal.Header>
 
-        <Modal.Body>
+        <Modal.Body style={{ padding: "0px" }}>
           <div width="100%">
             {orderList &&
               orderList.map((b, i) => {
@@ -278,7 +278,6 @@ if(!data.name||!data.password){
                       style={{
                         border: "2px solid",
                         borderRadius: "10px",
-                        padding: "10px",
                       }}
                     >
                       <div className="row1">
