@@ -235,14 +235,16 @@ const Header = ({ poke, poke2 }) => {
             )}
             <br />
             <div style={{ textAlign: "center" }}>
-              <Button
-                type="submit"
-                style={{ width: "50%" }}
-                variant="contained"
-                onClick={handleSave}
-              >
-                Save
-              </Button>
+              {!userInfo.name == "admin" && (
+                <Button
+                  type="submit"
+                  style={{ width: "50%" }}
+                  variant="contained"
+                  onClick={handleSave}
+                >
+                  Save
+                </Button>
+              )}
               <br />
               {loading && loading ? <LinearProgress /> : <></>}
             </div>
@@ -300,7 +302,7 @@ const Header = ({ poke, poke2 }) => {
         <h4 className="row0">
           <span className="pointer" onClick={() => navigate("/")}>
             {" "}
-            <img src={logo} width="50px" style={{borderRadius:50}} />{" "}
+            <img src={logo} width="50px" style={{ borderRadius: 50 }} />{" "}
             <span className="navKeys">FoodCart</span>
           </span>
           <InfoIcon className="pointer" onClick={() => setShow2(true)} />
