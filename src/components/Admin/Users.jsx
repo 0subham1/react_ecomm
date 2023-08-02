@@ -229,8 +229,8 @@ const Users = () => {
       </Modal>
 
       <div style={{ width: "100%" }}>
-        <h3>Users List</h3>
         <div className="row1">
+        <h3>Users List</h3>
           <TextField
             size="small"
             variant="outlined"

@@ -99,7 +99,7 @@ body {
   display: block !important;
 }
 
-@media (max-width: 40em) {
+@media (max-width: 70rem) {
   .mobileView {
     display: flex !important;
   }
@@ -107,14 +107,13 @@ body {
   .deskView {
     display: none !important;
   }
-  #cartBox{
+  #cartBox {
     height: 30vh !important;
     overflow-y: "auto" !important;
   }
-
 }
 
-@media (max-width: 60rem) {
+@media (max-width: 70rem) {
   #cart {
     display: none;
   }
@@ -131,7 +130,7 @@ body {
   }
 }
 
-@media (max-width: 30rem) {
+@media (max-width: 70rem) {
   #toHide {
     display: none !important;
   }

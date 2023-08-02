@@ -300,7 +300,7 @@ const Header = ({ poke, poke2 }) => {
         <h4 className="row0">
           <span className="pointer" onClick={() => navigate("/")}>
             {" "}
-            <img src={logo} width="50px" />{" "}
+            <img src={logo} width="50px" style={{borderRadius:50}} />{" "}
             <span className="navKeys">FoodCart</span>
           </span>
           <InfoIcon className="pointer" onClick={() => setShow2(true)} />

@@ -99,7 +99,7 @@ const Home = (props) => {
         </Modal.Body>
       </Modal>
 
-      <Carousel style={{ width: "100%" }}>
+      <Carousel className="deskView" style={{ width: "100%" }}>
         <Carousel.Item>
           <img
             height="300px"

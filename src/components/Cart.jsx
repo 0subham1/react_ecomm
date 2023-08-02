@@ -200,15 +200,7 @@ const Cart = (props) => {
             <div>₹ {total}</div>
           </h5>
           <div style={{ textAlign: "center" }} className="row4">
-            <Button
-              variant="contained"
-              size="small"
-              style={{ width: "50%" }}
-              onClick={() => handleSave()}
-            >
-              Order
-            </Button>
-            <Badge
+          <Badge
               className="mobileView"
               badgeContent={cartItemList?.length}
               color="primary"
@@ -221,6 +213,15 @@ const Cart = (props) => {
                 />
               </Tooltip>
             </Badge>
+            <Button
+              variant="contained"
+              size="small"
+              style={{ width: "50%" }}
+              onClick={() => handleSave()}
+            >
+              Order
+            </Button>
+            
           </div>
         </Card>
       </div>
