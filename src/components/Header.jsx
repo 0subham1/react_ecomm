@@ -235,7 +235,9 @@ const Header = ({ poke, poke2 }) => {
             )}
             <br />
             <div style={{ textAlign: "center" }}>
-              {!userInfo.name == "admin" && (
+              {userInfo.name == "admin" ? (
+                <></>
+              ) : (
                 <Button
                   type="submit"
                   style={{ width: "50%" }}
