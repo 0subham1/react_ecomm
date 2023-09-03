@@ -53,6 +53,13 @@ body {
   display: flex;
   justify-content: space-around;
 }
+.card0 {
+  box-shadow: 0px 1px 4px -1px #999999;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 5px;
+}
+
 .card {
   display: flex;
   justify-content: space-between;
@@ -68,8 +75,10 @@ body {
 }
 
 .adminPanel {
+  margin-top: 12px;
   width: 200px;
-  cursor: pointer;
+  /* cursor: pointer; */
+  height: 85vh;
 }
 
 .adminPanel div {

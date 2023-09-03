@@ -90,7 +90,7 @@ const Home = (props) => {
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton={true}>CART</Modal.Header>
 
-        <Modal.Body style={{padding:"0px"}}>
+        <Modal.Body style={{ padding: "0px" }}>
           <Cart
             cartItemList={cartItemList}
             handleParentSetCart={handleParentSetCart}
@@ -99,7 +99,7 @@ const Home = (props) => {
         </Modal.Body>
       </Modal>
 
-      <Carousel className="deskView" style={{ width: "100%" }}>
+      {/* <Carousel className="deskView" style={{ width: "100%" }}>
         <Carousel.Item>
           <img
             height="300px"
@@ -122,22 +122,21 @@ const Home = (props) => {
             style={{ width: "100%", objectFit: "cover" }}
           />
         </Carousel.Item>
-      </Carousel>
+      </Carousel> */}
 
       <div className="row3" style={{ width: "100%" }}>
-        <Card style={{ width: "70%" }} id="itemList">
+        <div className="card0" style={{ width: "70%" }} id="itemList">
           <h4 className="row0">
             <span id="toHide">Items</span>
-            <span style={{ background: "white" }}>
+            <div>
               <TextField
-                size="small"
-                color="primary"
                 variant="outlined"
+                size="small"
                 label={<SearchRoundedIcon />}
                 placeholder="Search"
                 onChange={(e) => handleSearch(e.target.value)}
               />
-            </span>
+            </div>
             <span id="responsiveCart" style={{ display: "none" }}>
               <Badge
                 badgeContent={cartItemList?.length}
@@ -149,7 +148,9 @@ const Home = (props) => {
               </Badge>
             </span>
           </h4>
-          <div style={{ overflowY: "scroll", maxHeight: "87vh" }}>
+          <div
+            style={{ overflowY: "scroll", overflowX: "hidden", height: "73vh" }}
+          >
             <Row>
               {list.length > 0 ? (
                 list?.map((a, i) => {
@@ -195,14 +196,14 @@ const Home = (props) => {
               )}
             </Row>
           </div>
-        </Card>
+        </div>
 
-        <Card style={{ width: "30%" }} id="cart">
+        <div className="card0" style={{ width: "30%" }} id="cart">
           <Cart
             cartItemList={cartItemList}
             handleParentSetCart={handleParentSetCart}
           />
-        </Card>
+        </div>
       </div>
       <Toaster />
     </div>

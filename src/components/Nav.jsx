@@ -8,7 +8,7 @@ const Nav = ({ css }) => {
   const navigate = useNavigate();
   return (
     <>
-      <Card className={css}>
+      <div className={css}>
         <div onClick={() => navigate("/Items")} className="hover">
           <FastfoodIcon /> <span>Items</span>
         </div>
@@ -20,7 +20,7 @@ const Nav = ({ css }) => {
         <div onClick={() => navigate("/Users")} className="hover">
           <AccessibilityNewIcon /> <span>Users</span>
         </div>
-      </Card>
+      </div>
     </>
   );
 };

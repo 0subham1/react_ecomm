@@ -15,7 +15,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import RestoreIcon from "@mui/icons-material/Restore";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import InfoIcon from "@mui/icons-material/Info";
-import logo from "../img/logo.png";
+import logo from "../img/log.png";
 
 const Header = ({ poke, poke2 }) => {
   let navigate = useNavigate();
@@ -165,146 +165,153 @@ const Header = ({ poke, poke2 }) => {
     });
   };
 
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (e) => {
+    setAnchorEl(e.currentTarget);
+  };
+  const handleClose1 = () => {
+    setAnchorEl(null);
+  };
+
   return (
     <>
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton={true}>{style}</Modal.Header>
+      <>
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton={true}>{style}</Modal.Header>
 
-        <Modal.Body>
-          <form onSubmit={handleSave}>
-            <div className="q1">
-              <div>
-                <TextField
-                  variant="outlined"
-                  fullWidth={true}
-                  label="Name"
-                  name="name"
-                  value={userInfo.name}
-                  onChange={(e) => handleData(e)}
-                />
-              </div>
-              {style == "Sign In" ? (
-                <></>
-              ) : (
-                <>
-                  <br />
-                  <div>
-                    <TextField
-                      variant="outlined"
-                      label="Phone"
-                      fullWidth={true}
-                      name="phone"
-                      value={userInfo.phone}
-                      onChange={(e) => handleData(e)}
-                    />
-                  </div>
-                </>
-              )}
-
-              <br />
-              <div>
-                <TextField
-                  fullWidth={true}
-                  variant="outlined"
-                  label="Password"
-                  name="password"
-                  value={userInfo.password}
-                  onChange={(e) => handleData(e)}
-                />
-              </div>
-            </div>
-            <br />
-            {style == "Sign In" ? (
-              <h5
-                style={{ textAlign: "center" }}
-                className="hover"
-                onClick={handleSignUp}
-              >
-                New Here? Sign Up
-              </h5>
-            ) : style == "Edit Profile" ? (
-              <></>
-            ) : (
-              <h5
-                style={{ textAlign: "center" }}
-                className="hover"
-                onClick={handleSignIn}
-              >
-                already have an account? Sign In
-              </h5>
-            )}
-            <br />
-            <div style={{ textAlign: "center" }}>
-              {userInfo.name == "admin" ? (
-                <></>
-              ) : (
-                <Button
-                  type="submit"
-                  style={{ width: "50%" }}
-                  variant="contained"
-                  onClick={handleSave}
-                >
-                  Save
-                </Button>
-              )}
-              <br />
-              {loading && loading ? <LinearProgress /> : <></>}
-            </div>
-          </form>
-        </Modal.Body>
-      </Modal>
-
-      <Modal show={show2} onHide={handleClose2}>
-        <Modal.Header closeButton={true}>Hello I am subham..</Modal.Header>
-
-        <Modal.Body style={{ fontSize: "1.1rem" }}>
-          <div> Welcome to my MERN app,</div>
-          <div> Kindly Sign Up as random customer or login as</div>
-          <div> userName: admin</div>
-          <div>Password: 12</div>
-          <hr />
-          <div> (upgradation to NextJs in progress)</div>
-        </Modal.Body>
-      </Modal>
-
-      <Modal show={show3} onHide={handleClose3}>
-        <Modal.Header closeButton={true}>
-          {localUserInfo?.name}'s Order List
-        </Modal.Header>
-
-        <Modal.Body style={{ padding: "0px" }}>
-          <div width="100%">
-            {orderList &&
-              orderList.map((b, i) => {
-                return (
+          <Modal.Body>
+            <form onSubmit={handleSave}>
+              <div className="q1">
+                <div>
+                  <TextField
+                    variant="outlined"
+                    fullWidth={true}
+                    label="Name"
+                    name="name"
+                    value={userInfo.name}
+                    onChange={(e) => handleData(e)}
+                  />
+                </div>
+                {style == "Sign In" ? (
+                  <></>
+                ) : (
                   <>
-                    <div
-                      style={{
-                        border: "2px solid",
-                        borderRadius: "10px",
-                      }}
-                    >
-                      <div className="row1">
-                        <div>{b.orderId}</div>
-                        <div>{b.orderDate.substring(0, 10)}</div>
-                        <div style={{ width: "100px", textAlign: "right" }}>
-                          ₹ {b.total}
+                    <br />
+                    <div>
+                      <TextField
+                        variant="outlined"
+                        label="Phone"
+                        fullWidth={true}
+                        name="phone"
+                        value={userInfo.phone}
+                        onChange={(e) => handleData(e)}
+                      />
+                    </div>
+                  </>
+                )}
+
+                <br />
+                <div>
+                  <TextField
+                    fullWidth={true}
+                    variant="outlined"
+                    label="Password"
+                    name="password"
+                    value={userInfo.password}
+                    onChange={(e) => handleData(e)}
+                  />
+                </div>
+              </div>
+              <br />
+              {style == "Sign In" ? (
+                <h5
+                  style={{ textAlign: "center" }}
+                  className="hover"
+                  onClick={handleSignUp}
+                >
+                  New Here? Sign Up
+                </h5>
+              ) : style == "Edit Profile" ? (
+                <></>
+              ) : (
+                <h5
+                  style={{ textAlign: "center" }}
+                  className="hover"
+                  onClick={handleSignIn}
+                >
+                  already have an account? Sign In
+                </h5>
+              )}
+              <br />
+              <div style={{ textAlign: "center" }}>
+                {localUserInfo?.isAdmin ? (
+                  <></>
+                ) : (
+                  <Button
+                    type="submit"
+                    style={{ width: "50%" }}
+                    variant="contained"
+                    onClick={handleSave}
+                  >
+                    Save
+                  </Button>
+                )}
+
+                <br />
+                {loading && loading ? <LinearProgress /> : <></>}
+              </div>
+            </form>
+          </Modal.Body>
+        </Modal>
+
+        <Modal show={show2} onHide={handleClose2}>
+          <Modal.Header closeButton={true}>Hello I am subham..</Modal.Header>
+
+          <Modal.Body style={{ fontSize: "1.1rem" }}>
+            <div> Welcome to my MERN app,</div>
+            <div> Kindly Sign Up as random customer or login as</div>
+            <div> userName: admin</div>
+            <div>Password: 12</div>
+            <hr />
+            <div> (upgradation to NextJs in progress)</div>
+          </Modal.Body>
+        </Modal>
+
+        <Modal show={show3} onHide={handleClose3}>
+          <Modal.Header closeButton={true}>
+            {localUserInfo?.name}'s Order List
+          </Modal.Header>
+
+          <Modal.Body style={{ padding: "0px" }}>
+            <div width="100%">
+              {orderList &&
+                orderList.map((b, i) => {
+                  return (
+                    <>
+                      <div className="card0">
+                        <div className="row1">
+                          <div>{b.orderId}</div>
+                          <div>{b.orderDate.substring(0, 10)}</div>
+                          <div style={{ width: "100px", textAlign: "right" }}>
+                            ₹ {b.total}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <br />
-                  </>
-                );
-              })}
-          </div>
-        </Modal.Body>
-      </Modal>
+                      <br />
+                    </>
+                  );
+                })}
+            </div>
+          </Modal.Body>
+        </Modal>
+      </>
 
-      <div className="row1 header" style={{ height: "70px" }}>
+      <div className="row1 card0" style={{ height: "70px" }}>
         <h4 className="row0">
           <span className="pointer" onClick={() => navigate("/")}>
             {" "}
-            <img src={logo} width="50px" style={{ borderRadius: 50 }} />{" "}
+            <img src={logo} width="50px" />{" "}
             <span className="navKeys">FoodCart</span>
           </span>
           <InfoIcon className="pointer" onClick={() => setShow2(true)} />
@@ -312,11 +319,11 @@ const Header = ({ poke, poke2 }) => {
 
         <div style={{ display: "flex", alignItems: "center" }}>
           {localUserInfo?.name}&nbsp;
-          <div className="dropBtn">
+          <div>
             {localUserInfo ? (
-              <Dropdown className="skyBtn">
-                <Dropdown.Toggle className="skyBtn">
-                  <PersonIcon style={{ color: "white" }} />
+              <Dropdown>
+                <Dropdown.Toggle>
+                  <PersonIcon />
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   <>

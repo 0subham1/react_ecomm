@@ -22,10 +22,10 @@ const Routing = () => {
     <>
       <Header poke={poke} poke2={poke2} />
 
-      {localUserInfo?.isAdmin ? <Nav css="row1 mobileView" /> : <></>}
-      <br />
+      {localUserInfo?.isAdmin ? <Nav css="row1 card0 mobileView" /> : <></>}
+  
       <div style={{ display: "flex" }}>
-        {localUserInfo?.isAdmin ? <Nav css="adminPanel deskView" /> : <></>}
+        {localUserInfo?.isAdmin ? <Nav css="card0 adminPanel deskView" /> : <></>}
 
         <Routes>
           <Route exact path="/" element={<Home handlePoke={handlePoke} />} />
