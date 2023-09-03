@@ -17,7 +17,6 @@ import Badge from "@mui/material/Badge";
 
 import Cart from "./Cart";
 import Carousel from "react-bootstrap/Carousel";
-import { Card } from "@mui/material";
 import food from "../img/food.jpg";
 import pizza from "../img/pizza.jpg";
 import pizza2 from "../img/pizza2.jpg";
@@ -90,7 +89,7 @@ const Home = (props) => {
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton={true}>CART</Modal.Header>
 
-        <Modal.Body style={{ padding: "0px" }}>
+        <Modal.Body style={{ padding: "10px" }}>
           <Cart
             cartItemList={cartItemList}
             handleParentSetCart={handleParentSetCart}
@@ -124,9 +123,9 @@ const Home = (props) => {
         </Carousel.Item>
       </Carousel> */}
 
-      <div className="row3" style={{ width: "100%" }}>
-        <div className="card0" style={{ width: "70%" }} id="itemList">
-          <h4 className="row0">
+      <div className="row1">
+        <div style={{ width: "70%", height: "75vh  " }} id="itemList">
+          <h4 className="row1">
             <span id="toHide">Items</span>
             <div>
               <TextField
@@ -149,22 +148,14 @@ const Home = (props) => {
             </span>
           </h4>
           <div
-            style={{ overflowY: "scroll", overflowX: "hidden", height: "73vh" }}
+            style={{ overflowY: "scroll", overflowX: "hidden", height: "65vh" }}
           >
             <Row>
               {list.length > 0 ? (
                 list?.map((a, i) => {
                   return (
                     <Col>
-                      <div
-                        className="row0"
-                        style={{
-                          border: "2px solid",
-                          borderRadius: "6px",
-                          padding: "10px",
-                          width: "22rem",
-                        }}
-                      >
+                      <div className="row1 card0" style={{ width: "21rem" }}>
                         <img
                           src={a?.img == "" || a.img == null ? food : a.img}
                           width="100px"
@@ -205,6 +196,7 @@ const Home = (props) => {
           />
         </div>
       </div>
+
       <Toaster />
     </div>
   );

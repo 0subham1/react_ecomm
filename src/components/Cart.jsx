@@ -20,7 +20,6 @@ import Badge from "@mui/material/Badge";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import CancelIcon from "@mui/icons-material/Cancel";
-import { Card } from "@mui/material";
 
 const Cart = (props) => {
   console.log(props, "props");
@@ -118,7 +117,7 @@ const Cart = (props) => {
   return (
     <>
       <div>
-        <h4 className="row0 navKeys">
+        <h4 className="row1 navKeys">
           <span>CART</span>
           <Badge
             badgeContent={cartItemList?.length}
@@ -143,8 +142,8 @@ const Cart = (props) => {
                       style={{
                         border: "2px solid",
                         borderRadius: "6px",
-                        padding:"0px",
-                        margin:"0px",
+                        padding: "0px",
+                        margin: "0px",
                       }}
                       id="cartDiv"
                     >
@@ -186,7 +185,7 @@ const Cart = (props) => {
         </div>
         <br />
 
-        <Card>
+        <div>
           <div className="row1">
             <div>SubTotal:</div>
             <div>{subTotal}</div>
@@ -199,8 +198,8 @@ const Cart = (props) => {
             <div>Total:</div>
             <div>₹ {total}</div>
           </h5>
-          <div style={{ textAlign: "center" }} className="row4">
-          <Badge
+          <div style={{ textAlign: "center" }} className="rowSpaceAround">
+            <Badge
               className="mobileView"
               badgeContent={cartItemList?.length}
               color="primary"
@@ -221,9 +220,8 @@ const Cart = (props) => {
             >
               Order
             </Button>
-            
           </div>
-        </Card>
+        </div>
       </div>
       <Toaster />
     </>

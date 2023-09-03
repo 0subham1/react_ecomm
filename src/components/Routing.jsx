@@ -24,7 +24,7 @@ const Routing = () => {
 
       {localUserInfo?.isAdmin ? <Nav css="row1 card0 mobileView" /> : <></>}
   
-      <div style={{ display: "flex" }}>
+      <div className="card0" style={{ display: "flex",height:"80vh" }}>
         {localUserInfo?.isAdmin ? <Nav css="card0 adminPanel deskView" /> : <></>}
 
         <Routes>

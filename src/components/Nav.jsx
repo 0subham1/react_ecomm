@@ -1,4 +1,3 @@
-import { Card } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import AccessibilityNewIcon from "@mui/icons-material/AccessibilityNew";

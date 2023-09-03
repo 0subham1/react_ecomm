@@ -308,7 +308,7 @@ const Header = ({ poke, poke2 }) => {
       </>
 
       <div className="row1 card0" style={{ height: "70px" }}>
-        <h4 className="row0">
+        <h4 className="row1">
           <span className="pointer" onClick={() => navigate("/")}>
             {" "}
             <img src={logo} width="50px" />{" "}
@@ -370,7 +370,7 @@ const Header = ({ poke, poke2 }) => {
               <>
                 <PersonIcon
                   onClick={handleSignIn}
-                  style={{ cursor: "pointer", color: "white" }}
+                  style={{ cursor: "pointer", }}
                 />
               </>
             )}
