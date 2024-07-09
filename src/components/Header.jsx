@@ -19,6 +19,15 @@ import logo from "../img/log.png";
 import AccessibilityNewIcon from "@mui/icons-material/AccessibilityNew";
 import FastfoodIcon from "@mui/icons-material/Fastfood";
 import GradingIcon from "@mui/icons-material/Grading";
+import { isMobile } from "react-device-detect";
+
+import Accordion from "@mui/material/Accordion";
+import AccordionActions from "@mui/material/AccordionActions";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
 
 const Header = ({ poke, poke2 }) => {
   let navigate = useNavigate();
@@ -32,11 +41,6 @@ const Header = ({ poke, poke2 }) => {
   const handleClose = () => {
     setShow(false);
     setLoading(false);
-  };
-
-  const [show2, setShow2] = useState(false);
-  const handleClose2 = () => {
-    setShow2(false);
   };
 
   const [show3, setShow3] = useState(false);
@@ -63,6 +67,7 @@ const Header = ({ poke, poke2 }) => {
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes",
       cancelButtonText: "No",
+      width: isMobile ? "50vw" : "20vw",
     }).then((result) => {
       if (result.isConfirmed) {
         localStorage.clear();
@@ -164,9 +169,9 @@ const Header = ({ poke, poke2 }) => {
   };
 
   const handleOrderHistory = () => {
+    setShow3(true);
     axios.get(BASE_URL + "userOrders/" + localUserInfo._id).then((res) => {
       console.log(res);
-      setShow3(true);
       setOrderList(res.data);
     });
   };
@@ -275,16 +280,73 @@ const Header = ({ poke, poke2 }) => {
 
         <Modal show={show3} onHide={handleClose3}>
           <Modal.Header id="modalHeader" closeButton={true}>
-            {localUserInfo?.name}'s Order List
+            {localUserInfo?.name}'s Order List{" "}
+            {!orderList?.length > 0 && "Loading.."}
           </Modal.Header>
 
           <Modal.Body style={{ padding: "0px" }}>
             <div width="100%">
               {orderList &&
-                orderList.map((b, i) => {
+                orderList?.map((b, i) => {
                   return (
                     <>
-                      <div className="card0">
+                      <Accordion>
+                        <AccordionSummary
+                          expandIcon={<ExpandMoreIcon />}
+                          aria-controls="panel1-content"
+                          id="panel1-header"
+                        >
+                          <div
+                            style={{
+                              width: "98%",
+                              display: "flex",
+                              justifyContent: "space-between",
+                            }}
+                          >
+                            <div>{b.orderId}</div>
+                            <div>{b.orderDate.substring(0, 10)}</div>
+
+                            <div
+                              style={{
+                                width: isMobile ? "20vw" : "100px",
+                                textAlign: "right",
+                              }}
+                            >
+                              ₹ {b.total}
+                            </div>
+                          </div>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                          <h4 id="homeHeader" style={{ padding: "10px" }}>
+                            Items:
+                          </h4>
+                          {b.itemList.map((x) => {
+                            return (
+                              <div className="row1">
+                                <div
+                                  style={{
+                                    width: isMobile ? "30vw" : "100px",
+                                    textAlign: "left",
+                                  }}
+                                >
+                                  {x.name}
+                                </div>
+                                <div>x{x.qty}</div>
+                                <div
+                                  style={{
+                                    width: isMobile ? "20vw" : "100px",
+                                    textAlign: "right",
+                                  }}
+                                >
+                                  ₹{x.price}
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </AccordionDetails>
+                      </Accordion>
+
+                      {/* <div className="card0">
                         <div className="row1">
                           <div>{b.orderId}</div>
                           <div>{b.orderDate.substring(0, 10)}</div>
@@ -292,7 +354,7 @@ const Header = ({ poke, poke2 }) => {
                             ₹ {b.total}
                           </div>
                         </div>
-                      </div>
+                      </div> */}
                       <br />
                     </>
                   );
@@ -315,7 +377,7 @@ const Header = ({ poke, poke2 }) => {
           {localUserInfo?.name}&nbsp;
           <div>
             {localUserInfo ? (
-              <Dropdown>
+              <Dropdown id="drop">
                 <Dropdown.Toggle>
                   <PersonIcon />
                 </Dropdown.Toggle>
@@ -338,44 +400,41 @@ const Header = ({ poke, poke2 }) => {
                         <RestoreIcon /> &nbsp;&nbsp;&nbsp;Orders
                       </b>
                     </Dropdown.Item>
-                    {/* ------------ */}
-                    <hr></hr>
-                    <Dropdown.Item
-                      onClick={() => navigate("/Items")}
-                      style={{ cursor: "pointer" }}
-                    >
-                      <b>
-                        <FastfoodIcon /> &nbsp;&nbsp;&nbsp;Items
-                      </b>
-                    </Dropdown.Item>
-                    <Dropdown.Item
-                      onClick={() => navigate("/Orders")}
-                      style={{ cursor: "pointer" }}
-                    >
-                      <b>
-                        <GradingIcon /> &nbsp;&nbsp;&nbsp;All Orders
-                      </b>
-                    </Dropdown.Item>
-                    <Dropdown.Item
-                      onClick={() => navigate("/Users")}
-                      style={{ cursor: "pointer" }}
-                    >
-                      <b>
-                        <AccessibilityNewIcon /> &nbsp;&nbsp;&nbsp;Users
-                      </b>
-                    </Dropdown.Item>
 
-                    {/* --------- */}
-                    <Dropdown.Item
-                      id="cartDrop"
-                      onClick={() => setShow2(true)}
-                      style={{ cursor: "pointer", display: "none" }}
-                    >
-                      <b>
-                        <ShoppingCartIcon /> &nbsp;&nbsp;&nbsp;Cart
-                      </b>
-                    </Dropdown.Item>
-                    <hr></hr>
+                    <hr />
+
+                    {!isMobile && (
+                      <Dropdown.Item
+                        onClick={() => navigate("/Items")}
+                        style={{ cursor: "pointer" }}
+                      >
+                        <b>
+                          <FastfoodIcon /> &nbsp;&nbsp;&nbsp;Items
+                        </b>
+                      </Dropdown.Item>
+                    )}
+                    {!isMobile && (
+                      <Dropdown.Item
+                        onClick={() => navigate("/Orders")}
+                        style={{ cursor: "pointer" }}
+                      >
+                        <b>
+                          <GradingIcon /> &nbsp;&nbsp;&nbsp;All Orders
+                        </b>
+                      </Dropdown.Item>
+                    )}
+                    {!isMobile && (
+                      <Dropdown.Item
+                        onClick={() => navigate("/Users")}
+                        style={{ cursor: "pointer" }}
+                      >
+                        <b>
+                          <AccessibilityNewIcon /> &nbsp;&nbsp;&nbsp;Users
+                        </b>
+                      </Dropdown.Item>
+                    )}
+
+                    {!isMobile && <hr />}
                     <Dropdown.Item
                       onClick={handleLogout}
                       style={{ cursor: "pointer" }}

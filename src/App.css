@@ -27,6 +27,11 @@ body {
   display: flex;
   justify-content: space-around;
 }
+.rowSpaceBetween {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+}
 .card0 {
   box-shadow: 0px 1px 4px -1px #999999;
   border-radius: 5px;

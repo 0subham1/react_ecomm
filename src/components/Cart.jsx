@@ -84,7 +84,7 @@ const Cart = (props) => {
   useEffect(() => {
     let sum = 0;
     cartItemList &&
-      cartItemList.map((a) => {
+      cartItemList?.map((a) => {
         sum = sum + a.finalPrice;
       });
     setSubTotal(sum);
@@ -135,7 +135,7 @@ const Cart = (props) => {
         <div id="cartBox" style={{ overflowY: "auto", height: "40vh" }}>
           {cartItemList?.length > 0
             ? cartItemList &&
-              cartItemList.map((a, i) => {
+              cartItemList?.map((a, i) => {
                 return (
                   <>
                     <div
