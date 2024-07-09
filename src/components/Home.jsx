@@ -202,7 +202,9 @@ const Home = (props) => {
                   );
                 })
               ) : (
-                <CircularProgress />
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  Items Loading.. <CircularProgress />
+                </div>
               )}
             </Row>
           </div>

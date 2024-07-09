@@ -332,7 +332,7 @@ const Header = ({ poke, poke2 }) => {
                       style={{ cursor: "pointer" }}
                     >
                       <b>
-                        <RestoreIcon /> &nbsp;&nbsp;&nbsp;History
+                        <RestoreIcon /> &nbsp;&nbsp;&nbsp;Orders
                       </b>
                     </Dropdown.Item>
 

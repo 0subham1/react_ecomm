@@ -211,7 +211,7 @@ const Orders = () => {
         </Modal.Body>
       </Modal>
 
-      <div style={{ width: "100%" }}>
+      <div style={{ width: "100%", paddingLeft: "5px" }}>
         <h3>Orders List</h3>
         <div className="row1">
           <TextField
@@ -230,7 +230,12 @@ const Orders = () => {
             </Button> */}
         </div>
         {orderList.length > 0 ? (
-          <DataTable columns={columns} data={orderList} fixedHeader />
+          <DataTable
+            columns={columns}
+            data={orderList}
+            fixedHeader
+            pagination={true}
+          />
         ) : (
           <CircularProgress />
         )}

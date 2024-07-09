@@ -65,12 +65,12 @@ body {
 }
 
 .icon:hover {
-  color: rgb(115, 222, 255);
+  color: rgb(97, 216, 253);
   cursor: pointer;
 }
 
 .hover:hover {
-  color: rgb(231, 63, 63);
+  color: rgb(97, 216, 253);
   cursor: pointer;
 }
 

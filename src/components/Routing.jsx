@@ -23,9 +23,13 @@ const Routing = () => {
       <Header poke={poke} poke2={poke2} />
 
       {localUserInfo?.isAdmin ? <Nav css="row1 card0 mobileView" /> : <></>}
-  
-      <div className="card0" style={{ display: "flex",height:"80vh" }}>
-        {localUserInfo?.isAdmin ? <Nav css="card0 adminPanel deskView" /> : <></>}
+
+      <div style={{ display: "flex", height: "80vh" }}>
+        {localUserInfo?.isAdmin ? (
+          <Nav css="card0 adminPanel deskView" />
+        ) : (
+          <></>
+        )}
 
         <Routes>
           <Route exact path="/" element={<Home handlePoke={handlePoke} />} />

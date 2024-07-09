@@ -62,16 +62,6 @@ const Users = () => {
 
       selector: (row) => row?.phone,
     },
-    {
-      name: "PASSWORD",
-
-      selector: (row) => row?.password,
-    },
-    {
-      name: "isAdmin",
-
-      selector: (row) => (row?.isAdmin ? "true" : ""),
-    },
 
     {
       name: "ACTION",
@@ -103,7 +93,7 @@ const Users = () => {
     console.log(row, "row");
 
     if (row.isAdmin) {
-      toast("Sorry admin cant be deleted!");
+      toast.error(" admin cant be deleted!");
       return;
     } else {
       axios.delete(BASE_URL + "deleteUser/" + row._id).then((res) => {
@@ -230,7 +220,7 @@ const Users = () => {
         </Modal.Body>
       </Modal>
 
-      <div style={{ width: "100%" }}>
+      <div style={{ width: "100%", paddingLeft: "5px" }}>
         <h3>Users List</h3>
         <div className="row1">
           <TextField
@@ -249,7 +239,12 @@ const Users = () => {
           </Button> */}
         </div>
         {userList.length > 0 ? (
-          <DataTable columns={columns} data={userList} fixedHeader />
+          <DataTable
+            columns={columns}
+            data={userList}
+            fixedHeader
+            pagination={true}
+          />
         ) : (
           <CircularProgress />
         )}

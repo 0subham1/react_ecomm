@@ -56,11 +56,7 @@ const Items = () => {
 
       selector: (row) => row.name,
     },
-    {
-      name: "CATEGORY",
 
-      cell: (row) => row?.category,
-    },
     {
       name: "PRICE",
       selector: (row) => row.price,
@@ -84,7 +80,7 @@ const Items = () => {
       ...itemInfo,
       name: row.name,
       price: row.price,
-      category: row.category,
+      category: "breakfast",
       img: row.img,
       note: row.note,
       _id: row._id,
@@ -176,28 +172,7 @@ const Items = () => {
             </div>
 
             <br />
-            <div>
-              <TextField
-                fullWidth={true}
-                variant="outlined"
-                label="Category"
-                name="category"
-                value={itemInfo.category}
-                onChange={(e) => handleData(e)}
-              />
-            </div>
-            <br />
-            <div>
-              <TextField
-                fullWidth={true}
-                variant="outlined"
-                label="Img Src"
-                name="img"
-                value={itemInfo.img}
-                onChange={(e) => handleData(e)}
-              />
-            </div>
-            <br />
+
             <div>
               <TextField
                 fullWidth={true}
@@ -222,7 +197,7 @@ const Items = () => {
         </Modal.Body>
       </Modal>
 
-      <div style={{ width: "100%" }}>
+      <div style={{ width: "100%", paddingLeft: "5px" }}>
         <h3>Item List</h3>
         <div className="row1">
           <TextField
@@ -241,7 +216,12 @@ const Items = () => {
           </Button>
         </div>
         {itemList.length > 0 ? (
-          <DataTable columns={columns} data={itemList} fixedHeader />
+          <DataTable
+            columns={columns}
+            data={itemList}
+            fixedHeader
+            pagination={true}
+          />
         ) : (
           <CircularProgress />
         )}
