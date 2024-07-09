@@ -153,7 +153,9 @@ const Users = () => {
   return (
     <>
       <Modal show={show} onHide={handleClose}>
-      <Modal.Header closeButton={true}>{edit ? "EDIT" : "NEW"} USER</Modal.Header>
+        <Modal.Header id="modalHeader" closeButton={true}>
+          {edit ? "EDIT" : "NEW"} USER
+        </Modal.Header>
 
         <Modal.Body>
           <div className="q1">

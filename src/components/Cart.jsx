@@ -140,10 +140,11 @@ const Cart = (props) => {
                   <>
                     <div
                       style={{
-                        border: "2px solid",
+                        // border: "2px solid",
                         borderRadius: "6px",
-                        padding: "0px",
-                        margin: "0px",
+                        padding: "6px",
+
+                        margin: "3px",
                       }}
                       id="cartDiv"
                     >
@@ -156,7 +157,7 @@ const Cart = (props) => {
                       >
                         <div style={{ width: "6rem" }}>{a.name}</div>
 
-                        <div style={{ display: "flex" }}>
+                        <div style={{ display: "flex", alignItems: "center" }}>
                           <RemoveCircleIcon
                             className="icon"
                             onClick={(e) => handleChangeQty(e, i, "sub")}

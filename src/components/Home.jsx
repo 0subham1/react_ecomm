@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../Const";
@@ -23,6 +23,7 @@ import pizza2 from "../img/pizza2.jpg";
 console.log(BASE_URL, "BASE_URL");
 
 const Home = (props) => {
+  let inputRef = useRef();
   const localUserInfo = JSON?.parse(localStorage.getItem("localUserInfo"));
 
   let aa = localStorage?.getItem("localCart");
@@ -83,11 +84,20 @@ const Home = (props) => {
   useEffect(() => {
     console.log(cartItemList, "cartItemList");
   }, [cartItemList]);
+  console.log(inputRef, "inputRef");
 
+  const handleRef = () => {
+    inputRef.current.focus();
+    inputRef.current.value = "subham";
+    inputRef.current.style.color = "red";
+    inputRef.current.style.display = "none";
+  };
   return (
     <div style={{ width: "100%" }}>
       <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton={true}>CART</Modal.Header>
+        <Modal.Header id="modalHeader" closeButton={true}>
+          CART
+        </Modal.Header>
 
         <Modal.Body style={{ padding: "10px" }}>
           <Cart
@@ -127,6 +137,15 @@ const Home = (props) => {
         <div style={{ width: "70%", height: "75vh  " }} id="itemList">
           <h4 className="row1">
             <span id="toHide">Items</span>
+
+            {/* <input
+              ref={inputRef}
+              onChange={(e) => console.log(e)}
+              defaultValue="subham"
+              value=""
+            />
+
+            <button onClick={() => handleRef()}>ref btn</button> */}
             <div>
               <TextField
                 variant="outlined"

@@ -94,19 +94,6 @@ const Orders = () => {
     });
   };
 
-  const handleDelete = (row) => {
-    console.log(row, "row");
-    axios.delete(BASE_URL + "deleteOrder/" + row._id).then((res) => {
-      if (res.data) {
-        toast.success("record deleted");
-        handleClose();
-        getOrders();
-      } else {
-        toast("delete failed");
-      }
-    });
-  };
-
   const handleSearch = (search) => {
     const result = orderList2.filter((a) => {
       return (
@@ -147,7 +134,9 @@ const Orders = () => {
   return (
     <>
       <Modal show={show} onHide={handleClose}>
-      <Modal.Header closeButton={true}>{edit ? "EDIT" : "NEW"} ORDER</Modal.Header>
+        <Modal.Header id="modalHeader" closeButton={true}>
+          {edit ? "EDIT" : "NEW"} ORDER
+        </Modal.Header>
 
         <Modal.Body>
           <div className="q1">
@@ -226,7 +215,7 @@ const Orders = () => {
         <h3>Orders List</h3>
         <div className="row1">
           <TextField
-          size="small"
+            size="small"
             variant="outlined"
             label={<SearchRoundedIcon />}
             onChange={(e) => handleSearch(e.target.value)}

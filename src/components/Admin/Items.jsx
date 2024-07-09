@@ -145,7 +145,9 @@ const Items = () => {
   return (
     <>
       <Modal show={show} onHide={handleClose}>
-      <Modal.Header closeButton={true}>{edit ? "EDIT" : "NEW"} ITEM</Modal.Header>
+        <Modal.Header id="modalHeader" closeButton={true}>
+          {edit ? "EDIT" : "NEW"} ITEM
+        </Modal.Header>
 
         <Modal.Body>
           <div className="q1">

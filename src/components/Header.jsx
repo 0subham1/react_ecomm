@@ -86,23 +86,26 @@ const Header = ({ poke, poke2 }) => {
     }
 
     if (style == "Sign In") {
-      axios.post(BASE_URL + "login", data).then((res) => {
-        console.log(res);
-        if (res.data.result) {
-          localStorage.setItem("auth", JSON.stringify(res.data.auth));
-          localStorage.setItem(
-            "localUserInfo",
-            JSON.stringify(res.data.result)
-          );
-          toast.success("login successful");
-          window.location.href = "/";
-          setLoading(false);
-          handleClose();
-        } else {
-          toast.error("login unSuccessful");
-          setLoading(false);
-        }
-      });
+      axios
+        .post(BASE_URL + "login", data)
+        .then((res) => {
+          console.log(res);
+          if (res.data.result) {
+            localStorage.setItem("auth", JSON.stringify(res.data.auth));
+            localStorage.setItem(
+              "localUserInfo",
+              JSON.stringify(res.data.result)
+            );
+            toast.success("login successful");
+            window.location.href = "/";
+            setLoading(false);
+            handleClose();
+          } else {
+            toast.error("login unSuccessful");
+            setLoading(false);
+          }
+        })
+        .catch((err) => {});
     } else if (style == "Sign Up") {
       axios.post(BASE_URL + "signUp", userInfo).then((res) => {
         console.log(res);
@@ -178,7 +181,9 @@ const Header = ({ poke, poke2 }) => {
     <>
       <>
         <Modal show={show} onHide={handleClose}>
-          <Modal.Header closeButton={true}>{style}</Modal.Header>
+          <Modal.Header id="modalHeader" closeButton={true}>
+            {style}
+          </Modal.Header>
 
           <Modal.Body>
             <form onSubmit={handleSave}>
@@ -265,21 +270,8 @@ const Header = ({ poke, poke2 }) => {
           </Modal.Body>
         </Modal>
 
-        <Modal show={show2} onHide={handleClose2}>
-          <Modal.Header closeButton={true}>Hello I am subham..</Modal.Header>
-
-          <Modal.Body style={{ fontSize: "1.1rem" }}>
-            <div> Welcome to my MERN app,</div>
-            <div> Kindly Sign Up as random customer or login as</div>
-            <div> userName: admin</div>
-            <div>Password: 12</div>
-            <hr />
-            <div> (upgradation to NextJs in progress)</div>
-          </Modal.Body>
-        </Modal>
-
         <Modal show={show3} onHide={handleClose3}>
-          <Modal.Header closeButton={true}>
+          <Modal.Header id="modalHeader" closeButton={true}>
             {localUserInfo?.name}'s Order List
           </Modal.Header>
 
@@ -307,14 +299,13 @@ const Header = ({ poke, poke2 }) => {
         </Modal>
       </>
 
-      <div className="row1 card0" style={{ height: "70px" }}>
+      <div className="row1 card0" id="homeHeader" style={{ height: "70px" }}>
         <h4 className="row1">
           <span className="pointer" onClick={() => navigate("/")}>
             {" "}
             <img src={logo} width="50px" />{" "}
             <span className="navKeys">FoodCart</span>
           </span>
-          <InfoIcon className="pointer" onClick={() => setShow2(true)} />
         </h4>
 
         <div style={{ display: "flex", alignItems: "center" }}>
@@ -370,7 +361,7 @@ const Header = ({ poke, poke2 }) => {
               <>
                 <PersonIcon
                   onClick={handleSignIn}
-                  style={{ cursor: "pointer", }}
+                  style={{ cursor: "pointer" }}
                 />
               </>
             )}
