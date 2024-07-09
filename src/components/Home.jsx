@@ -108,31 +108,6 @@ const Home = (props) => {
         </Modal.Body>
       </Modal>
 
-      {/* <Carousel className="deskView" style={{ width: "100%" }}>
-        <Carousel.Item>
-          <img
-            height="300px"
-            src={pizza}
-            style={{ width: "100%", objectFit: "cover" }}
-          />
-        </Carousel.Item>
-
-        <Carousel.Item>
-          <img
-            height="300px"
-            src={food}
-            style={{ width: "100%", objectFit: "cover" }}
-          />
-        </Carousel.Item>
-        <Carousel.Item>
-          <img
-            height="300px"
-            src={pizza2}
-            style={{ width: "100%", objectFit: "cover" }}
-          />
-        </Carousel.Item>
-      </Carousel> */}
-
       <div className="row1">
         <div style={{ width: "70%", height: "75vh  " }} id="itemList">
           <h4 className="row1">

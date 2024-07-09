@@ -317,9 +317,9 @@ const Header = ({ poke, poke2 }) => {
                           </div>
                         </AccordionSummary>
                         <AccordionDetails>
-                          <h4 id="homeHeader" style={{ padding: "10px" }}>
+                          <h5 id="homeHeader" style={{ padding: "10px" }}>
                             Items:
-                          </h4>
+                          </h5>
                           {b.itemList.map((x) => {
                             return (
                               <div className="row1">

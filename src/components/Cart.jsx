@@ -138,16 +138,7 @@ const Cart = (props) => {
               cartItemList?.map((a, i) => {
                 return (
                   <>
-                    <div
-                      style={{
-                        // border: "2px solid",
-                        borderRadius: "6px",
-                        padding: "6px",
-
-                        margin: "3px",
-                      }}
-                      id="cartDiv"
-                    >
+                    <div id="cartItem">
                       <div
                         style={{
                           display: "flex",
@@ -193,12 +184,13 @@ const Cart = (props) => {
           </div>
           <div className="row1">
             <div>Taxes (5%):</div>
-            <div>{Number(tax)?.toFixed(2)}</div>
+            <div>₹ {Number(tax)?.toFixed(2)}</div>
           </div>
           <h5 className="row1">
             <div>Total:</div>
             <div>₹ {total}</div>
           </h5>
+          <hr />
           <div style={{ textAlign: "center" }} className="rowSpaceAround">
             <Badge
               className="mobileView"
