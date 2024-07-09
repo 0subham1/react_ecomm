@@ -8,6 +8,9 @@ import Users from "./Admin/Users";
 import Orders from "./Admin/Orders";
 import AccessDenied from "./AccessDenied";
 import Nav from "./Nav";
+import Footer from "./Footer";
+import { isMobile } from "react-device-detect";
+
 const Routing = () => {
   const [poke, setPoke] = useState(false);
   const [poke2, setPoke2] = useState(false);
@@ -19,17 +22,15 @@ const Routing = () => {
     setPoke2(a);
   };
   return (
-    <>
+    <div>
       <Header poke={poke} poke2={poke2} />
 
-      {localUserInfo?.isAdmin ? <Nav css="row1 card0 mobileView" /> : <></>}
-
-      <div style={{ display: "flex", height: "80vh" }}>
-        {localUserInfo?.isAdmin ? (
+      <div style={{ display: "flex", height: "auto" }}>
+        {/* {localUserInfo?.isAdmin ? (
           <Nav css="card0 adminPanel deskView" />
         ) : (
           <></>
-        )}
+        )} */}
 
         <Routes>
           <Route exact path="/" element={<Home handlePoke={handlePoke} />} />
@@ -51,7 +52,13 @@ const Routing = () => {
           />
         </Routes>
       </div>
-    </>
+
+      {localUserInfo?.isAdmin && isMobile ? (
+        <Footer css={"footer card0 row1"} />
+      ) : (
+        <></>
+      )}
+    </div>
   );
 };
 

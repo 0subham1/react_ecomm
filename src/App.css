@@ -142,3 +142,11 @@ body {
 #homeHeader {
   background: linear-gradient(353deg, #91e0fc -2.97%, #ffffff 111.3%);
 }
+
+.footer {
+  position: fixed;
+  width: 94vw;
+
+  bottom: 0;
+  background: linear-gradient(353deg, #91e0fc -2.97%, #ffffff 111.3%);
+}

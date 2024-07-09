@@ -11,6 +11,8 @@ import Modal from "react-bootstrap/Modal";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import { CircularProgress } from "@mui/material";
+import { isMobile } from "react-device-detect";
+
 const Items = () => {
   const [itemList, setItemList] = useState([]);
   const [itemList2, setItemList2] = useState([]);
@@ -220,7 +222,7 @@ const Items = () => {
             columns={columns}
             data={itemList}
             fixedHeader
-            pagination={true}
+            pagination={isMobile ? false : true}
           />
         ) : (
           <CircularProgress />

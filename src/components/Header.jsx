@@ -16,6 +16,9 @@ import RestoreIcon from "@mui/icons-material/Restore";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import InfoIcon from "@mui/icons-material/Info";
 import logo from "../img/log.png";
+import AccessibilityNewIcon from "@mui/icons-material/AccessibilityNew";
+import FastfoodIcon from "@mui/icons-material/Fastfood";
+import GradingIcon from "@mui/icons-material/Grading";
 
 const Header = ({ poke, poke2 }) => {
   let navigate = useNavigate();
@@ -335,7 +338,34 @@ const Header = ({ poke, poke2 }) => {
                         <RestoreIcon /> &nbsp;&nbsp;&nbsp;Orders
                       </b>
                     </Dropdown.Item>
+                    {/* ------------ */}
+                    <hr></hr>
+                    <Dropdown.Item
+                      onClick={() => navigate("/Items")}
+                      style={{ cursor: "pointer" }}
+                    >
+                      <b>
+                        <FastfoodIcon /> &nbsp;&nbsp;&nbsp;Items
+                      </b>
+                    </Dropdown.Item>
+                    <Dropdown.Item
+                      onClick={() => navigate("/Orders")}
+                      style={{ cursor: "pointer" }}
+                    >
+                      <b>
+                        <GradingIcon /> &nbsp;&nbsp;&nbsp;All Orders
+                      </b>
+                    </Dropdown.Item>
+                    <Dropdown.Item
+                      onClick={() => navigate("/Users")}
+                      style={{ cursor: "pointer" }}
+                    >
+                      <b>
+                        <AccessibilityNewIcon /> &nbsp;&nbsp;&nbsp;Users
+                      </b>
+                    </Dropdown.Item>
 
+                    {/* --------- */}
                     <Dropdown.Item
                       id="cartDrop"
                       onClick={() => setShow2(true)}
@@ -345,7 +375,7 @@ const Header = ({ poke, poke2 }) => {
                         <ShoppingCartIcon /> &nbsp;&nbsp;&nbsp;Cart
                       </b>
                     </Dropdown.Item>
-
+                    <hr></hr>
                     <Dropdown.Item
                       onClick={handleLogout}
                       style={{ cursor: "pointer" }}
