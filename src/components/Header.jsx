@@ -420,10 +420,18 @@ const Header = ({ poke, poke2 }) => {
 
       <div className="row1 card0" id="homeHeader" style={{ height: "70px" }}>
         <h4 className="row1">
-          <span className="pointer" onClick={() => navigate("/")}>
+          <span className="pointer">
             {" "}
+            {/* <Link
+              href="https://play.google.com/store/apps/details?id=com.greenplay.ecomm"
+              onClick={() => {
+                alert("Redirecting to Playstore");
+              }}
+            ></Link> */}
             <img src={logo} width="50px" />{" "}
-            <span className="navKeys">FoodCart</span>
+            <span className="navKeys" onClick={() => navigate("/")}>
+              FoodCart
+            </span>
           </span>
         </h4>
 
