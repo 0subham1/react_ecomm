@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import AddIcon from "@mui/icons-material/Add";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import { BASE_URL } from "../../Const";
 import TextField from "@mui/material/TextField";
@@ -56,7 +57,7 @@ const Items = () => {
     {
       name: "NAME",
 
-      selector: (row) => row.name,
+      selector: (row) => row?.name?.toLowerCase(),
     },
 
     {
@@ -69,7 +70,7 @@ const Items = () => {
         <div>
           <EditIcon onClick={() => handleEdit(row)} className="icon" />
           &nbsp;
-          {/* <DeleteIcon onClick={() => handleDelete(row)} className="icon" /> */}
+          <DeleteIcon onClick={() => handleDelete(row)} className="icon" />
         </div>
       ),
     },
@@ -144,7 +145,7 @@ const Items = () => {
     <>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header id="modalHeader" closeButton={true}>
-          {edit ? "EDIT" : "NEW"} ITEM
+          {edit ? "EDIT" : "ADD"} ITEM
         </Modal.Header>
 
         <Modal.Body>
@@ -199,24 +200,31 @@ const Items = () => {
         </Modal.Body>
       </Modal>
 
-      <div style={{ width: "100%", paddingLeft: "5px" }}>
-        <h3>Item List</h3>
+      <div style={{ width: "100%", paddingLeft: "5px" }} className="card0">
+        {isMobile && <h3>Item List </h3>}
         <div className="row1">
-          <TextField
-            size="small"
-            variant="outlined"
-            label={<SearchRoundedIcon />}
-            onChange={(e) => handleSearch(e.target.value)}
-          />
-          <Button
-            variant="contained"
-            size="small"
-            onClick={() => setShow(true)}
-          >
-            <AddIcon />
-            New
-          </Button>
+          {!isMobile && <h3>Item List </h3>}
+
+          <div className="row0">
+            <TextField
+              size="small"
+              style={{ width: isMobile ? "200px" : "" }}
+              variant="outlined"
+              label={<SearchRoundedIcon />}
+              onChange={(e) => handleSearch(e.target.value)}
+            />
+
+            <Button
+              variant="contained"
+              size="small"
+              onClick={() => setShow(true)}
+            >
+              <AddIcon />
+              New
+            </Button>
+          </div>
         </div>
+
         {itemList.length > 0 ? (
           <DataTable
             columns={columns}

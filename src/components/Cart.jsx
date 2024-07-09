@@ -10,7 +10,6 @@ import toast, { Toaster } from "react-hot-toast";
 
 import CircularProgress from "@mui/material/CircularProgress";
 import Button from "@mui/material/Button";
-import LinearProgress from "@mui/material/LinearProgress";
 import TextField from "@mui/material/TextField";
 import { BottomNavigation } from "@mui/material";
 import Tooltip from "@mui/material/Tooltip";
@@ -38,6 +37,7 @@ const Cart = (props) => {
   const [total, setTotal] = useState(0);
   const [subTotal, setSubTotal] = useState(0);
   const [tax, setTax] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const [cartItemList, setCartItemList] = useState(
     props?.cartItemList ? props?.cartItemList : LC
@@ -54,6 +54,7 @@ const Cart = (props) => {
   }, [cartItemList]);
 
   const handleSave = () => {
+    setLoading(true);
     const data = {
       itemList: cartItemList,
       userId: localUserInfo._id,
@@ -63,16 +64,25 @@ const Cart = (props) => {
       total: total,
       tax: tax,
     };
-    axios.post(BASE_URL + "addOrder", data).then((res) => {
-      console.log(res);
-      if (res.data) {
-        toast.success("Order placed successfully");
-        handleClearCart();
-        props.handleClose();
-      } else {
-        toast("error in placing order");
-      }
-    });
+    axios
+      .post(BASE_URL + "addOrder", data)
+      .then((res) => {
+        setLoading(false);
+
+        console.log(res);
+        if (res.data) {
+          toast.success("Order placed successfully");
+          handleClearCart();
+        } else {
+          toast("error in placing order");
+        }
+      })
+      .catch((err) => {
+        setLoading(false);
+        toast.error(
+          err?.response?.data ? err?.response?.data : "action unsuccessful"
+        );
+      });
 
     console.log(data, "data");
   };
@@ -210,8 +220,13 @@ const Cart = (props) => {
               size="small"
               style={{ width: "50%" }}
               onClick={() => handleSave()}
+              disabled={cartItemList?.length > 0 ? false : true}
             >
-              Order
+              {loading ? (
+                <CircularProgress size={30} style={{ color: "white" }} />
+              ) : (
+                "Order"
+              )}
             </Button>
           </div>
         </div>

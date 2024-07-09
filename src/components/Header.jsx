@@ -6,7 +6,6 @@ import axios from "axios";
 
 import Modal from "react-bootstrap/Modal";
 import toast, { Toaster } from "react-hot-toast";
-import LinearProgress from "@mui/material/LinearProgress";
 import TextField from "@mui/material/TextField";
 import Dropdown from "react-bootstrap/Dropdown";
 import Swal from "sweetalert2";
@@ -20,6 +19,7 @@ import AccessibilityNewIcon from "@mui/icons-material/AccessibilityNew";
 import FastfoodIcon from "@mui/icons-material/Fastfood";
 import GradingIcon from "@mui/icons-material/Grading";
 import { isMobile } from "react-device-detect";
+import CircularProgress from "@mui/material/CircularProgress";
 
 import Accordion from "@mui/material/Accordion";
 import AccordionActions from "@mui/material/AccordionActions";
@@ -28,6 +28,7 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 
 const Header = ({ poke, poke2 }) => {
   let navigate = useNavigate();
@@ -36,11 +37,13 @@ const Header = ({ poke, poke2 }) => {
   const [style, setStyle] = useState("Sign In");
   const [loading, setLoading] = useState(false);
   const [orderList, setOrderList] = useState([]);
+  const [showPass, setShowPass] = useState(false);
 
   const [show, setShow] = useState(false);
   const handleClose = () => {
     setShow(false);
     setLoading(false);
+    setUserInfo({});
   };
 
   const [show3, setShow3] = useState(false);
@@ -78,18 +81,31 @@ const Header = ({ poke, poke2 }) => {
   const handleData = (e) => {
     setUserInfo({
       ...userInfo,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value.toString().toLowerCase(),
     });
   };
-  const handleSave = (e) => {
+  console.log(userInfo, "userInfo");
+  const handleSaveUser = (e) => {
     setLoading(true);
     e.preventDefault();
     const data = {
-      name: userInfo.name.toLocaleLowerCase(),
+      name: userInfo?.name,
+      phone: userInfo?.phone,
       password: userInfo.password,
     };
-    if (!data.name || !data.password) {
-      toast.error("Please fill both fields");
+    if (!data.name) {
+      toast.error("Please add name");
+      setLoading(false);
+      return;
+    }
+    if (!data.phone && !style == "Sign In") {
+      setLoading(false);
+      toast.error("Please add phone");
+      return;
+    }
+    if (!data.password) {
+      setLoading(false);
+      toast.error("Please add password");
       return;
     }
 
@@ -99,6 +115,7 @@ const Header = ({ poke, poke2 }) => {
         .then((res) => {
           console.log(res);
           if (res.data.result) {
+            setUserInfo({});
             localStorage.setItem("auth", JSON.stringify(res.data.auth));
             localStorage.setItem(
               "localUserInfo",
@@ -113,19 +130,37 @@ const Header = ({ poke, poke2 }) => {
             setLoading(false);
           }
         })
-        .catch((err) => {});
+        .catch((err) => {
+          setLoading(false);
+          toast.error(
+            err?.response?.data ? err?.response?.data : "action unsuccessful"
+          );
+        });
     } else if (style == "Sign Up") {
-      axios.post(BASE_URL + "signUp", userInfo).then((res) => {
-        console.log(res);
-        if (res.data) {
-          toast.success("SignUp successful");
+      axios
+        .post(BASE_URL + "signUp", userInfo)
+        .then((res) => {
+          console.log(res);
+          if (res.data) {
+            console.log(res.data, "res.ddd");
+            setUserInfo(res.data);
+            setUserInfo();
+            localStorage.setItem("localUserInfo", JSON.stringify(res.data));
+            window.location.href = "/";
+            toast.success("SignUp successful");
+            setLoading(false);
+            handleClose();
+          } else {
+            toast.success("SignUp UnSuccessful");
+            setLoading(false);
+          }
+        })
+        .catch((err) => {
           setLoading(false);
-          handleClose();
-        } else {
-          toast.success("SignUp UnSuccessful");
-          setLoading(false);
-        }
-      });
+          toast.error(
+            err?.response?.data ? err?.response?.data : "action unsuccessful"
+          );
+        });
     } else {
       axios
         .put(BASE_URL + "editUser/" + localUserInfo._id, userInfo)
@@ -135,6 +170,7 @@ const Header = ({ poke, poke2 }) => {
             toast.success("user Updated");
             axios.get(BASE_URL + "user/" + localUserInfo._id).then((res) => {
               localStorage.setItem("localUserInfo", JSON.stringify(res.data));
+              setUserInfo(res.data);
             });
             handleClose();
             setLoading(false);
@@ -142,6 +178,12 @@ const Header = ({ poke, poke2 }) => {
             toast("user not updated");
             setLoading(false);
           }
+        })
+        .catch((err) => {
+          setLoading(false);
+          toast.error(
+            err?.response?.data ? err?.response?.data : "action unsuccessful"
+          );
         });
     }
   };
@@ -194,7 +236,7 @@ const Header = ({ poke, poke2 }) => {
           </Modal.Header>
 
           <Modal.Body>
-            <form onSubmit={handleSave}>
+            <form onSubmit={handleSaveUser}>
               <div className="q1">
                 <div>
                   <TextField
@@ -215,6 +257,7 @@ const Header = ({ poke, poke2 }) => {
                       <TextField
                         variant="outlined"
                         label="Phone"
+                        type="number"
                         fullWidth={true}
                         name="phone"
                         value={userInfo.phone}
@@ -225,14 +268,19 @@ const Header = ({ poke, poke2 }) => {
                 )}
 
                 <br />
-                <div>
+                <div className="row0">
                   <TextField
                     fullWidth={true}
                     variant="outlined"
                     label="Password"
                     name="password"
+                    type={showPass ? "text" : "password"}
                     value={userInfo.password}
                     onChange={(e) => handleData(e)}
+                  />
+                  <VisibilityIcon
+                    className="pointer"
+                    onClick={() => setShowPass(!showPass)}
                   />
                 </div>
               </div>
@@ -240,7 +288,7 @@ const Header = ({ poke, poke2 }) => {
               {style == "Sign In" ? (
                 <h5
                   style={{ textAlign: "center" }}
-                  className="hover"
+                  className="pointer"
                   onClick={handleSignUp}
                 >
                   New Here? Sign Up
@@ -250,7 +298,7 @@ const Header = ({ poke, poke2 }) => {
               ) : (
                 <h5
                   style={{ textAlign: "center" }}
-                  className="hover"
+                  className="pointer"
                   onClick={handleSignIn}
                 >
                   already have an account? Sign In
@@ -265,14 +313,17 @@ const Header = ({ poke, poke2 }) => {
                     type="submit"
                     style={{ width: "50%" }}
                     variant="contained"
-                    onClick={handleSave}
+                    onClick={handleSaveUser}
                   >
-                    Save
+                    {loading ? (
+                      <CircularProgress size={30} style={{ color: "white" }} />
+                    ) : (
+                      "Save"
+                    )}
                   </Button>
                 )}
 
                 <br />
-                {loading && loading ? <LinearProgress /> : <></>}
               </div>
             </form>
           </Modal.Body>
@@ -403,38 +454,38 @@ const Header = ({ poke, poke2 }) => {
 
                     <hr />
 
-                    {!isMobile && (
+                    {!isMobile && localUserInfo?.isAdmin && (
                       <Dropdown.Item
                         onClick={() => navigate("/Items")}
                         style={{ cursor: "pointer" }}
                       >
                         <b>
-                          <FastfoodIcon /> &nbsp;&nbsp;&nbsp;Items
+                          <FastfoodIcon /> &nbsp;&nbsp;&nbsp;Items List
                         </b>
                       </Dropdown.Item>
                     )}
-                    {!isMobile && (
+                    {!isMobile && localUserInfo?.isAdmin && (
                       <Dropdown.Item
                         onClick={() => navigate("/Orders")}
                         style={{ cursor: "pointer" }}
                       >
                         <b>
-                          <GradingIcon /> &nbsp;&nbsp;&nbsp;All Orders
+                          <GradingIcon /> &nbsp;&nbsp;&nbsp;Orders List
                         </b>
                       </Dropdown.Item>
                     )}
-                    {!isMobile && (
+                    {!isMobile && localUserInfo?.isAdmin && (
                       <Dropdown.Item
                         onClick={() => navigate("/Users")}
                         style={{ cursor: "pointer" }}
                       >
                         <b>
-                          <AccessibilityNewIcon /> &nbsp;&nbsp;&nbsp;Users
+                          <AccessibilityNewIcon /> &nbsp;&nbsp;&nbsp;Users List
                         </b>
                       </Dropdown.Item>
                     )}
 
-                    {!isMobile && <hr />}
+                    {!isMobile && localUserInfo?.isAdmin && <hr />}
                     <Dropdown.Item
                       onClick={handleLogout}
                       style={{ cursor: "pointer" }}

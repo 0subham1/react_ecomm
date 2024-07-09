@@ -56,7 +56,7 @@ const Users = () => {
     {
       name: "NAME",
 
-      selector: (row) => row?.name,
+      selector: (row) => row?.name?.toLowerCase(),
     },
     {
       name: "PHONE",
@@ -68,7 +68,7 @@ const Users = () => {
       name: "ACTION",
       selector: (row) => (
         <div>
-          {/* <EditIcon onClick={() => handleEdit(row)} className="icon" /> */}
+          <EditIcon onClick={() => handleEdit(row)} className="icon" />
           &nbsp;
           <DeleteIcon onClick={() => handleDelete(row)} className="icon" />
         </div>
@@ -83,9 +83,6 @@ const Users = () => {
       ...userInfo,
       name: row.name,
       phone: row.phone,
-      category: row.category,
-      img: row.img,
-      note: row.note,
       _id: row._id,
     });
   };
@@ -221,24 +218,29 @@ const Users = () => {
         </Modal.Body>
       </Modal>
 
-      <div style={{ width: "100%", paddingLeft: "5px" }}>
-        <h3>Users List</h3>
+      <div style={{ width: "100%", paddingLeft: "5px" }} className="card0">
+        {isMobile && <h3>Users List </h3>}
         <div className="row1">
-          <TextField
-            size="small"
-            variant="outlined"
-            label={<SearchRoundedIcon />}
-            onChange={(e) => handleSearch(e.target.value)}
-          />{" "}
-          {/* <Button
-            variant="contained"
-            size="small"
-            onClick={() => setShow(true)}
-          >
-            <AddIcon />
-            New
-          </Button> */}
+          {!isMobile && <h3>Users List </h3>}
+
+          <div className="row1">
+            <TextField
+              size="small"
+              variant="outlined"
+              label={<SearchRoundedIcon />}
+              onChange={(e) => handleSearch(e.target.value)}
+            />{" "}
+            <Button
+              variant="contained"
+              size="small"
+              onClick={() => setShow(true)}
+            >
+              <AddIcon />
+              New
+            </Button>
+          </div>
         </div>
+
         {userList.length > 0 ? (
           <DataTable
             columns={columns}

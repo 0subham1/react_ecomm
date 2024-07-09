@@ -212,16 +212,17 @@ const Orders = () => {
         </Modal.Body>
       </Modal>
 
-      <div style={{ width: "100%", paddingLeft: "5px" }}>
-        <h3>Orders List</h3>
+      <div style={{ width: "100%", paddingLeft: "5px" }} className="card0">
         <div className="row1">
-          <TextField
-            size="small"
-            variant="outlined"
-            label={<SearchRoundedIcon />}
-            onChange={(e) => handleSearch(e.target.value)}
-          />{" "}
-          {/* <Button
+          <h3>Orders List</h3>
+          <div className="row1">
+            <TextField
+              size="small"
+              variant="outlined"
+              label={<SearchRoundedIcon />}
+              onChange={(e) => handleSearch(e.target.value)}
+            />{" "}
+            {/* <Button
               variant="contained"
               size="small"
               onClick={() => setShow(true)}
@@ -229,7 +230,9 @@ const Orders = () => {
               <AddIcon />
               New
             </Button> */}
+          </div>
         </div>
+
         {orderList.length > 0 ? (
           <DataTable
             columns={columns}
