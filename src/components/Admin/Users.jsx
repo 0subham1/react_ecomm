@@ -12,25 +12,17 @@ import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import { CircularProgress } from "@mui/material";
 import { isMobile } from "react-device-detect";
-
+import Swal from "sweetalert2";
 const Users = () => {
+  const [loading, setLoading] = useState(false);
   const [userList, setUserList] = useState([]);
   const [userList2, setUserList2] = useState([]);
   const [edit, setEdit] = useState(false);
   const [userInfo, setUserInfo] = useState({
     name: "",
-    price: "",
-    category: "",
-    img: "",
-    note: "",
+    phone: "",
+    password: "",
   });
-
-  const handleData = (e) => {
-    setUserInfo({
-      ...userInfo,
-      [e.target.name]: e.target.value,
-    });
-  };
 
   const [show, setShow] = useState(false);
   const handleClose = () => {
@@ -44,12 +36,20 @@ const Users = () => {
   }, []);
 
   const getUsers = () => {
-    axios.get(BASE_URL + "users").then((res) => {
-      console.log(res);
-      res.data.reverse();
-      setUserList(res.data);
-      setUserList2(res.data);
-    });
+    axios
+      .get(BASE_URL + "users")
+      .then((res) => {
+        console.log(res);
+        res.data.reverse();
+        setUserList(res.data);
+        setUserList2(res.data);
+      })
+      .catch((err) => {
+        setLoading(false);
+        toast.error(
+          err?.response?.data ? err?.response?.data : "action unsuccessful"
+        );
+      });
   };
 
   const columns = [
@@ -70,7 +70,10 @@ const Users = () => {
         <div>
           <EditIcon onClick={() => handleEdit(row)} className="icon" />
           &nbsp;
-          <DeleteIcon onClick={() => handleDelete(row)} className="icon" />
+          <DeleteIcon
+            onClick={() => handleDeleteConfirm(row)}
+            className="icon"
+          />
         </div>
       ),
     },
@@ -113,28 +116,53 @@ const Users = () => {
     setUserList(result);
   };
 
-  const handleSave = () => {
-    if (edit) {
-      axios.put(BASE_URL + "editItem/" + userInfo._id, userInfo).then((res) => {
-        if (res.data.modifiedCount > 0) {
-          toast.success("record Edited");
-          handleClose();
+  const handleSave = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    axios
+      .put(BASE_URL + "editUser/" + userInfo._id, userInfo)
+      .then((res) => {
+        console.log(res);
+        if (res.data.matchedCount > 0) {
+          toast.success("user Updated");
           getUsers();
-        } else {
-          toast("edit failed");
-        }
-      });
-    } else {
-      axios.post(BASE_URL + "addItem", userInfo).then((res) => {
-        if (res.data) {
-          toast.success("record added");
           handleClose();
-          getUsers();
+          setLoading(false);
         } else {
-          toast("add failed");
+          toast("user not updated");
+          setLoading(false);
         }
+      })
+      .catch((err) => {
+        setLoading(false);
+        toast.error(
+          err?.response?.data ? err?.response?.data : "action unsuccessful"
+        );
       });
-    }
+  };
+
+  const handleData = (e) => {
+    setUserInfo({
+      ...userInfo,
+      [e.target.name]: e.target.value.toString().toLowerCase(),
+    });
+  };
+
+  const handleDeleteConfirm = (row) => {
+    Swal.fire({
+      title: "Delete " + row.name + "?",
+      text: "",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
+      cancelButtonText: "No",
+      width: isMobile ? "50vw" : "20vw",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        handleDelete(row);
+      }
+    });
   };
 
   console.log(userInfo, "userInfo");
@@ -146,75 +174,66 @@ const Users = () => {
         </Modal.Header>
 
         <Modal.Body>
-          <div className="q1">
-            <div>
-              <TextField
-                variant="outlined"
-                fullWidth={true}
-                label="Name"
-                name="name"
-                value={userInfo.name}
-                onChange={(e) => handleData(e)}
-              />
+          <form onSubmit={handleSave}>
+            <div className="q1">
+              <div>
+                <TextField
+                  variant="outlined"
+                  fullWidth={true}
+                  label="Name"
+                  name="name"
+                  value={userInfo.name}
+                  onChange={(e) => handleData(e)}
+                />
+              </div>
+              <br />
+              <div>
+                <TextField
+                  variant="outlined"
+                  label="Phone"
+                  type="number"
+                  fullWidth={true}
+                  name="phone"
+                  value={userInfo.phone}
+                  onChange={(e) => handleData(e)}
+                />
+              </div>
+
+              <br />
+              <div className="row0">
+                <TextField
+                  fullWidth={true}
+                  variant="outlined"
+                  label="Password"
+                  name="password"
+                  // type={showPass ? "text" : "password"}
+                  value={userInfo.password}
+                  onChange={(e) => handleData(e)}
+                />
+                {/* <VisibilityIcon
+                  className="pointer"
+                  onClick={() => setShowPass(!showPass)}
+                /> */}
+              </div>
+            </div>
+            <br />
+            <div style={{ textAlign: "center" }}>
+              <Button
+                type="submit"
+                style={{ width: "50%" }}
+                variant="contained"
+                onClick={handleSave}
+              >
+                {loading ? (
+                  <CircularProgress size={30} style={{ color: "white" }} />
+                ) : (
+                  "Edit User"
+                )}
+              </Button>
             </div>
 
             <br />
-            <div>
-              <TextField
-                variant="outlined"
-                label="Price"
-                type="number"
-                fullWidth={true}
-                name="price"
-                value={userInfo.price}
-                onChange={(e) => handleData(e)}
-              />
-            </div>
-
-            <br />
-            <div>
-              <TextField
-                fullWidth={true}
-                variant="outlined"
-                label="Category"
-                name="category"
-                value={userInfo.category}
-                onChange={(e) => handleData(e)}
-              />
-            </div>
-            <br />
-            <div>
-              <TextField
-                fullWidth={true}
-                variant="outlined"
-                label="Img"
-                name="img"
-                value={userInfo.img}
-                onChange={(e) => handleData(e)}
-              />
-            </div>
-            <br />
-            <div>
-              <TextField
-                fullWidth={true}
-                variant="outlined"
-                label="Note"
-                name="note"
-                value={userInfo.note}
-                onChange={(e) => handleData(e)}
-              />
-            </div>
-          </div>
-          <br />
-          <div style={{ textAlign: "center" }}>
-            <Button
-              variant="contained"
-              onClick={handleSave}
-              style={{ width: "50%" }}
-            >
-              Save
-            </Button>
-          </div>
+          </form>
         </Modal.Body>
       </Modal>
 
@@ -230,14 +249,14 @@ const Users = () => {
               label={<SearchRoundedIcon />}
               onChange={(e) => handleSearch(e.target.value)}
             />{" "}
-            <Button
+            {/* <Button
               variant="contained"
               size="small"
               onClick={() => setShow(true)}
             >
               <AddIcon />
               New
-            </Button>
+            </Button> */}
           </div>
         </div>
 

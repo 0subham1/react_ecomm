@@ -116,11 +116,11 @@ const Header = ({ poke, poke2 }) => {
           console.log(res);
           if (res.data.result) {
             setUserInfo({});
+
+            let obj = JSON.parse(JSON.stringify(res.data.result));
+            obj.password = "";
             localStorage.setItem("auth", JSON.stringify(res.data.auth));
-            localStorage.setItem(
-              "localUserInfo",
-              JSON.stringify(res.data.result)
-            );
+            localStorage.setItem("localUserInfo", JSON.stringify(obj));
             toast.success("login successful");
             window.location.href = "/";
             setLoading(false);
@@ -143,9 +143,12 @@ const Header = ({ poke, poke2 }) => {
           console.log(res);
           if (res.data) {
             console.log(res.data, "res.ddd");
-            setUserInfo(res.data);
-            setUserInfo();
-            localStorage.setItem("localUserInfo", JSON.stringify(res.data));
+            let obj = JSON.parse(JSON.stringify(res.data));
+            obj.password = "";
+            setUserInfo(obj);
+            console.log(obj, "obj");
+
+            localStorage.setItem("localUserInfo", JSON.stringify(obj));
             window.location.href = "/";
             toast.success("SignUp successful");
             setLoading(false);

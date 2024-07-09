@@ -20,6 +20,9 @@ import Carousel from "react-bootstrap/Carousel";
 import food from "../img/food.jpg";
 import pizza from "../img/pizza.jpg";
 import pizza2 from "../img/pizza2.jpg";
+import { Grid } from "@mui/material";
+import Box from "@mui/material/Box";
+import { isMobile } from "react-device-detect";
 console.log(BASE_URL, "BASE_URL");
 
 const Home = (props) => {
@@ -132,6 +135,7 @@ const Home = (props) => {
             </div>
             <span id="responsiveCart" style={{ display: "none" }}>
               <Badge
+                className="pointer"
                 badgeContent={cartItemList?.length}
                 color="primary"
                 style={{ zIndex: "100" }}
@@ -144,7 +148,56 @@ const Home = (props) => {
           <div
             style={{ overflowY: "scroll", overflowX: "hidden", height: "65vh" }}
           >
-            <Row>
+            <Box>
+              <Grid
+                container
+                spacing={1}
+                id="webItemListGrid"
+                // style={{ justifyContent: "space-around" }}
+              >
+                {list.length > 0 ? (
+                  list?.map((a, i) => {
+                    return (
+                      <Grid item>
+                        <div
+                          className="row1 card0 "
+                          id={isMobile ? "mobItemListCard" : "webItemListCard"}
+                        >
+                          <img
+                            src={a?.img == "" || a.img == null ? food : a.img}
+                            width="100px"
+                            height="100px"
+                            style={{ borderRadius: "15px" }}
+                          />
+
+                          <div>
+                            <div>{a.name}</div>
+                            <div>Price: {a.price}</div>
+                          </div>
+                          <Button
+                            variant="contained"
+                            size="small"
+                            onClick={() =>
+                              localUserInfo
+                                ? handleAddToCart(a, i)
+                                : props.handlePoke(true)
+                            }
+                          >
+                            add
+                          </Button>
+                        </div>
+                      </Grid>
+                    );
+                  })
+                ) : (
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    Items Loading.. <CircularProgress />
+                  </div>
+                )}
+              </Grid>
+            </Box>
+
+            {/* <Row>
               {list.length > 0 ? (
                 list?.map((a, i) => {
                   return (
@@ -181,7 +234,7 @@ const Home = (props) => {
                   Items Loading.. <CircularProgress />
                 </div>
               )}
-            </Row>
+            </Row> */}
           </div>
         </div>
 
@@ -189,6 +242,7 @@ const Home = (props) => {
           <Cart
             cartItemList={cartItemList}
             handleParentSetCart={handleParentSetCart}
+            handleClose={handleClose}
           />
         </div>
       </div>

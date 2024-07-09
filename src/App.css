@@ -76,7 +76,39 @@ body {
   display: block !important;
 }
 
-@media (max-width: 70rem) {
+#mobItemListCard {
+  width: 22rem;
+}
+#webItemListCard {
+  width: 18rem;
+}
+
+#webItemListGrid {
+}
+
+@media only screen and (max-width: 600px) {
+}
+
+@media (max-width: 50rem) {
+  #cart {
+    display: none;
+  }
+  #responsiveCart {
+    display: block !important;
+  }
+  #webItemListCard {
+    width: 35rem;
+  }
+  #itemList {
+    width: 100% !important;
+  }
+  #toHide {
+    display: none !important;
+  }
+
+  .navKeys {
+    display: none !important;
+  }
   .mobileView {
     display: flex !important;
   }
@@ -87,29 +119,6 @@ body {
   #cartBox {
     height: 30vh !important;
     overflow-y: "auto" !important;
-  }
-}
-
-@media (max-width: 70rem) {
-  #cart {
-    display: none;
-  }
-  #responsiveCart {
-    display: block !important;
-  }
-
-  #itemList {
-    width: 100% !important;
-  }
-}
-
-@media (max-width: 70rem) {
-  #toHide {
-    display: none !important;
-  }
-
-  .navKeys {
-    display: none !important;
   }
 }
 

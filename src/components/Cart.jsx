@@ -73,6 +73,7 @@ const Cart = (props) => {
         if (res.data) {
           toast.success("Order placed successfully");
           handleClearCart();
+          props.handleClose();
         } else {
           toast("error in placing order");
         }
@@ -128,7 +129,7 @@ const Cart = (props) => {
     <>
       <div>
         <h4 className="row1 navKeys">
-          <span>CART</span>
+          <span>Cart</span>
           <Badge
             badgeContent={cartItemList?.length}
             color="primary"

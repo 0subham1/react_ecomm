@@ -13,8 +13,11 @@ import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import { CircularProgress } from "@mui/material";
 import { isMobile } from "react-device-detect";
+import Swal from "sweetalert2";
 
 const Items = () => {
+  const [loading, setLoading] = useState(false);
+
   const [itemList, setItemList] = useState([]);
   const [itemList2, setItemList2] = useState([]);
   const [edit, setEdit] = useState(false);
@@ -22,17 +25,8 @@ const Items = () => {
     name: "",
     price: "",
     category: "",
-    img: "",
     note: "",
   });
-
-  const handleData = (e) => {
-    setItemInfo({
-      ...itemInfo,
-      [e.target.name]: e.target.value,
-    });
-  };
-
   const [show, setShow] = useState(false);
   const handleClose = () => {
     setShow(false);
@@ -53,6 +47,83 @@ const Items = () => {
     });
   };
 
+  const handleSave = () => {
+    setLoading(true);
+    if (!itemInfo.name) {
+      toast.error("Please add name");
+      setLoading(false);
+      return;
+    }
+
+    if (!itemInfo.price) {
+      setLoading(false);
+      toast.error("Please add price");
+      return;
+    }
+
+    if (edit) {
+      axios
+        .put(BASE_URL + "editItem/" + itemInfo._id, itemInfo)
+        .then((res) => {
+          if (res.data.modifiedCount > 0) {
+            toast.success("record Edited");
+            handleClose();
+            setLoading(false);
+
+            getItems();
+          } else {
+            setLoading(false);
+
+            toast.error("edit failed");
+          }
+        })
+        .catch((err) => {
+          setLoading(false);
+          toast.error(
+            err?.response?.data ? err?.response?.data : "action unsuccessful"
+          );
+        });
+    } else {
+      axios
+        .post(BASE_URL + "addItem", itemInfo)
+        .then((res) => {
+          if (res.data) {
+            setLoading(false);
+            toast.success("record added");
+            handleClose();
+            getItems();
+          } else {
+            toast.error("add failed");
+          }
+        })
+        .catch((err) => {
+          setLoading(false);
+          toast.error(
+            err?.response?.data ? err?.response?.data : "action unsuccessful"
+          );
+        });
+    }
+  };
+
+  const handleDelete = (row) => {
+    console.log(row, "row");
+    axios.delete(BASE_URL + "deleteItem/" + row._id).then((res) => {
+      if (res.data) {
+        toast.success("record deleted");
+        handleClose();
+        getItems();
+      } else {
+        toast("edit failed");
+      }
+    });
+  };
+  const handleData = (e) => {
+    setItemInfo({
+      ...itemInfo,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   const columns = [
     {
       name: "NAME",
@@ -70,7 +141,10 @@ const Items = () => {
         <div>
           <EditIcon onClick={() => handleEdit(row)} className="icon" />
           &nbsp;
-          <DeleteIcon onClick={() => handleDelete(row)} className="icon" />
+          <DeleteIcon
+            onClick={() => handleDeleteConfirm(row)}
+            className="icon"
+          />
         </div>
       ),
     },
@@ -84,22 +158,8 @@ const Items = () => {
       name: row.name,
       price: row.price,
       category: "breakfast",
-      img: row.img,
       note: row.note,
       _id: row._id,
-    });
-  };
-
-  const handleDelete = (row) => {
-    console.log(row, "row");
-    axios.delete(BASE_URL + "deleteItem/" + row._id).then((res) => {
-      if (res.data) {
-        toast.success("record deleted");
-        handleClose();
-        getItems();
-      } else {
-        toast("edit failed");
-      }
     });
   };
 
@@ -114,30 +174,21 @@ const Items = () => {
     setItemList(result);
   };
 
-  const handleClicked = () => {};
-
-  const handleSave = () => {
-    if (edit) {
-      axios.put(BASE_URL + "editItem/" + itemInfo._id, itemInfo).then((res) => {
-        if (res.data.modifiedCount > 0) {
-          toast.success("record Edited");
-          handleClose();
-          getItems();
-        } else {
-          toast("edit failed");
-        }
-      });
-    } else {
-      axios.post(BASE_URL + "addItem", itemInfo).then((res) => {
-        if (res.data) {
-          toast.success("record added");
-          handleClose();
-          getItems();
-        } else {
-          toast("add failed");
-        }
-      });
-    }
+  const handleDeleteConfirm = (row) => {
+    Swal.fire({
+      title: "Delete " + row.name + "?",
+      text: "",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
+      cancelButtonText: "No",
+      width: isMobile ? "50vw" : "20vw",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        handleDelete(row);
+      }
+    });
   };
 
   console.log(itemInfo, "itemInfo");
@@ -194,7 +245,11 @@ const Items = () => {
               onClick={handleSave}
               style={{ width: "50%" }}
             >
-              Save
+              {loading ? (
+                <CircularProgress size={30} style={{ color: "white" }} />
+              ) : (
+                "Save"
+              )}
             </Button>
           </div>
         </Modal.Body>
