@@ -190,51 +190,18 @@ const Home = (props) => {
                     );
                   })
                 ) : (
-                  <div style={{ display: "flex", alignItems: "center" }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      margin: "20px",
+                    }}
+                  >
                     Items Loading.. <CircularProgress />
                   </div>
                 )}
               </Grid>
             </Box>
-
-            {/* <Row>
-              {list.length > 0 ? (
-                list?.map((a, i) => {
-                  return (
-                    <Col>
-                      <div className="row1 card0" style={{ width: "21rem" }}>
-                        <img
-                          src={a?.img == "" || a.img == null ? food : a.img}
-                          width="100px"
-                          height="100px"
-                          style={{ borderRadius: "15px" }}
-                        />
-
-                        <div>
-                          <div>{a.name}</div>
-                          <div>Price: {a.price}</div>
-                        </div>
-                        <Button
-                          variant="contained"
-                          size="small"
-                          onClick={() =>
-                            localUserInfo
-                              ? handleAddToCart(a, i)
-                              : props.handlePoke(true)
-                          }
-                        >
-                          add
-                        </Button>
-                      </div>
-                    </Col>
-                  );
-                })
-              ) : (
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  Items Loading.. <CircularProgress />
-                </div>
-              )}
-            </Row> */}
           </div>
         </div>
 

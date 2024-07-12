@@ -11,7 +11,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import Modal from "react-bootstrap/Modal";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, Grid } from "@mui/material";
 import { isMobile } from "react-device-detect";
 import Swal from "sweetalert2";
 
@@ -256,11 +256,12 @@ const Items = () => {
       </Modal>
 
       <div style={{ width: "100%", paddingLeft: "5px" }} className="card0">
-        {isMobile && <h3>Item List </h3>}
-        <div className="row1">
-          {!isMobile && <h3>Item List </h3>}
-
-          <div className="row0">
+        <Grid container spacing={1} className="rowSpaceBetween">
+          <Grid item>
+            <h3>Item List </h3>
+          </Grid>
+          <Grid item>
+            {" "}
             <TextField
               size="small"
               style={{ width: isMobile ? "200px" : "" }}
@@ -268,7 +269,9 @@ const Items = () => {
               label={<SearchRoundedIcon />}
               onChange={(e) => handleSearch(e.target.value)}
             />
-
+          </Grid>
+          <Grid item>
+            {" "}
             <Button
               variant="contained"
               size="small"
@@ -277,8 +280,8 @@ const Items = () => {
               <AddIcon />
               New
             </Button>
-          </div>
-        </div>
+          </Grid>
+        </Grid>
 
         {itemList.length > 0 ? (
           <DataTable
